@@ -71,7 +71,8 @@ const education = {
 
 export function About() {
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-bl from-white to-emerald-50 -z-10" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1F2937] mb-4">

@@ -7,7 +7,8 @@ import { Mail, Phone, MapPin, Linkedin, Github, Send } from "lucide-react";
 
 export function Contact() {
   return (
-    <section id="contact" className="py-20 bg-[#F3F4F6]">
+    <section id="contact" className="py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-t from-emerald-50 to-white -z-10" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1F2937] mb-4">

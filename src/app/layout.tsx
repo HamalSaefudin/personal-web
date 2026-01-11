@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description: "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS. Based in Jakarta, Indonesia.",
     images: [
       {
-        url: "/avatar.png",
+        url: "/newavatar.png",
         width: 1200,
         height: 1200,
         alt: "Hamal",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hamal | Mobile Application Developer",
     description: "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS.",
-    images: ["/avatar.png"],
+    images: ["/newavatar.png"],
     creator: "@hamaltech",
   },
   icons: {
