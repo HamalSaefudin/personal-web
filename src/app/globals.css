@@ -23,29 +23,119 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: var(--font-roboto);
+  --font-sans: var(--font-inter);
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 12px;
+  
+  /* Background Colors - Light Mode */
   --background: #FAFAFA;
-  --foreground: #1F2937;
-  --card: #FFFFFF;
-  --card-foreground: #1F2937;
-  --popover: #FFFFFF;
-  --popover-foreground: #1F2937;
-  --primary: #22C55E;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  
+  /* Text Colors - Light Mode */
+  --foreground: #0F172A;
+  --foreground-secondary: #475569;
+  --foreground-muted: #94A3B8;
+  
+  /* Primary Brand Colors (Emerald Green) */
+  --primary: #10B981;
+  --primary-hover: #059669;
+  --primary-light: #D1FAE5;
   --primary-foreground: #FFFFFF;
-  --secondary: #DCFCE7;
-  --secondary-foreground: #1F2937;
-  --muted: #F3F4F6;
-  --muted-foreground: #6B7280;
-  --accent: #16A34A;
+  
+  /* Secondary Colors (Indigo) */
+  --secondary: #6366F1;
+  --secondary-hover: #4F46E5;
+  --secondary-light: #E0E7FF;
+  --secondary-foreground: #FFFFFF;
+  
+  /* Accent Colors */
+  --accent: #0F172A;
   --accent-foreground: #FFFFFF;
-  /* --destructive: oklch(0.577 0.245 27.325); */
-  --border: #E5E7EB;
-  --input: #E5E7EB;
-  --ring: #22C55E;
+  
+  /* Status Colors */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+  
+  /* Border & Input - Light Mode */
+  --border: #E2E8F0;
+  --border-focus: #10B981;
+  --input: #E2E8F0;
+  --ring: #10B981;
+  
+  /* Muted Colors */
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  
+  /* Card Colors */
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  
+  /* Popover Colors */
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  
+  /* Destructive */
+  --destructive: #EF4444;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.dark {
+  /* Background Colors - Dark Mode */
+  --background: #0F172A;
+  --surface: #1E293B;
+  --surface-elevated: #334155;
+  
+  /* Text Colors - Dark Mode */
+  --foreground: #F8FAFC;
+  --foreground-secondary: #CBD5E1;
+  --foreground-muted: #64748B;
+  
+  /* Primary Brand Colors */
+  --primary: #10B981;
+  --primary-hover: #34D399;
+  --primary-light: #064E3B;
+  --primary-foreground: #0F172A;
+  
+  /* Secondary Colors */
+  --secondary: #818CF8;
+  --secondary-hover: #6366F1;
+  --secondary-light: #312E81;
+  --secondary-foreground: #0F172A;
+  
+  /* Accent Colors */
+  --accent: #F8FAFC;
+  --accent-foreground: #0F172A;
+  
+  /* Border & Input - Dark Mode */
+  --border: #334155;
+  --border-focus: #10B981;
+  --input: #334155;
+  
+  /* Muted Colors - Dark Mode */
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+  
+  /* Card Colors - Dark Mode */
+  --card: #1E293B;
+  --card-foreground: #F8FAFC;
+  
+  /* Popover Colors - Dark Mode */
+  --popover: #1E293B;
+  --popover-foreground: #F8FAFC;
+  
+  /* Shadows - Dark Mode */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
 }
 
 @layer base {
@@ -58,7 +148,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-roboto), system-ui, sans-serif;
+    font-family: var(--font-inter), system-ui, sans-serif;
   }
 }
 

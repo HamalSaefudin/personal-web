@@ -1,74 +1,74 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ScrollReveal } from "@/components/ScrollReveal";
-import { Smartphone, Code2, Server, Wrench } from "lucide-react";
+import { motion } from "framer-motion";
+import { Smartphone, Code2, Server, TestTube } from "lucide-react";
 
-const skillCategories = [
+const skills = [
   {
-    title: "Mobile",
+    category: "Mobile Development",
+    color: "bg-blue-600",
+    iconColor: "text-white",
+    description: "Expert in building cross-platform apps using React Native and Flutter with Redux, Redux Saga, and SQLite",
     icon: Smartphone,
-    skills: ["React Native", "Flutter", "Dart", "Expo", "Redux", "Redux Toolkit", "SQLite", "Codepush"],
   },
   {
-    title: "Frontend",
+    category: "Frontend Engineering",
+    color: "bg-emerald-600",
+    iconColor: "text-white",
+    description: "Proficient in ReactJS, TypeScript, HTML, CSS, React Query, and Storybook",
     icon: Code2,
-    skills: ["ReactJS", "TypeScript", "HTML", "CSS", "Redux Saga", "React Query", "Storybook", "AngularJS"],
   },
   {
-    title: "Backend / Tools",
+    category: "Backend & Tools",
+    color: "bg-violet-600",
+    iconColor: "text-white",
+    description: "Experience with Node.js, Azure AD, JWT authentication, Sentry, and App Center Codepush",
     icon: Server,
-    skills: ["Node.js", "Azure AD", "JWT", "Sentry", "App Center", "WatermelonDB"],
   },
   {
-    title: "Testing",
-    icon: Wrench,
-    skills: ["Jest", "React Testing Library", "React Native Testing Library"],
+    category: "Testing",
+    color: "bg-orange-500",
+    iconColor: "text-white",
+    description: "Skilled in Jest, React Testing Library, and React Native Testing Library",
+    icon: TestTube,
   },
 ];
 
 export function Skills() {
-  return (
-    <section id="skills" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-white -z-10" />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1F2937] mb-4">
-            Technical <span className="text-[#22C55E]">Skills</span>
-          </h2>
-          <p className="text-[#6B7280] text-center max-w-2xl mx-auto mb-12">
-            Proficient in modern mobile and web development technologies
-          </p>
-        </ScrollReveal>
+  const reducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skillCategories.map((category, index) => (
-            <ScrollReveal key={category.title} delay={index * 0.1}>
-              <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-[#22C55E]">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-[#1F2937]">
-                    <category.icon className="h-5 w-5 text-[#22C55E]" />
-                    {category.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill) => (
-                      <Badge
-                        key={skill}
-                        variant="secondary"
-                        className="bg-white text-[#1F2937] border border-[#E5E7EB] hover:bg-[#E5E7EB] transition-colors"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
+  return (
+    <section id="skills" className="py-12 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reducedMotion ? 0.1 : 0.5 }}
+          className="bg-card rounded-2xl border border-border p-6"
+        >
+          <div className="space-y-6">
+            {skills.map((skill, index) => {
+              const Icon = skill.icon;
+              return (
+                <motion.div
+                  key={skill.category}
+                  initial={{ opacity: 0, x: reducedMotion ? 0 : -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: reducedMotion ? 0.1 : 0.5, delay: reducedMotion ? 0 : index * 0.1 }}
+                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer"
+                >
+                   <div className={`w-10 h-10 rounded-lg ${skill.color} flex items-center justify-center flex-shrink-0`}>
+                     <Icon className={`h-5 w-5 ${skill.iconColor}`} />
+                   </div>
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1">{skill.category}</h4>
+                    <p className="text-sm text-foreground-muted">{skill.description}</p>
                   </div>
-                </CardContent>
-              </Card>
-            </ScrollReveal>
-          ))}
-        </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

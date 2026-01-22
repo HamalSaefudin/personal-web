@@ -1,0 +1,10 @@
+# Robots.txt for hamalsaefudin.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: *.map$
+Disallow: *.txt$
+
+Sitemap: https://hamalsaefudin.com/sitemap.xml

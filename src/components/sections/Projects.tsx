@@ -63,13 +63,13 @@ const projects: Project[] = [
 export function Projects() {
   return (
     <section id="projects" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-bl from-white to-emerald-50 -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-bl from-background to-primary/5 -z-10" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1F2937] mb-4">
-            Featured <span className="text-[#22C55E]">Projects</span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-foreground mb-4">
+            Featured <span className="text-primary">Projects</span>
           </h2>
-          <p className="text-[#6B7280] text-center max-w-2xl mx-auto mb-12">
+          <p className="text-foreground-secondary text-center max-w-2xl mx-auto mb-12">
             A selection of mobile applications I&apos;ve developed and maintained
           </p>
         </ScrollReveal>
@@ -77,19 +77,19 @@ export function Projects() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <ScrollReveal key={project.title} delay={index * 0.1}>
-              <Card className="h-full flex flex-col hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+              <Card className="h-full flex flex-col hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group cursor-pointer">
                 <CardHeader>
-                  <CardTitle className="text-[#1F2937] text-lg">{project.title}</CardTitle>
-                  <p className="text-[#0D9488] text-sm font-medium">{project.company}</p>
+                  <CardTitle className="text-lg text-foreground">{project.title}</CardTitle>
+                  <p className="text-primary text-sm font-medium">{project.company}</p>
                 </CardHeader>
                 <CardContent className="flex-1">
-                  <p className="text-[#6B7280] text-sm mb-4">{project.description}</p>
+                  <p className="text-foreground-muted text-sm mb-4">{project.description}</p>
                   <div className="flex flex-wrap gap-1">
                     {project.technologies.map((tech) => (
                       <Badge
                         key={tech}
                         variant="outline"
-                        className="text-xs border-[#E5E7EB] text-[#6B7280]"
+                        className="text-xs border-border text-foreground-muted"
                       >
                         {tech}
                       </Badge>
@@ -101,7 +101,7 @@ export function Projects() {
                     <Button
                       variant="default"
                       size="sm"
-                      className="flex-1 bg-[#22C55E] hover:bg-[#16A34A] text-[#1F2937]"
+                      className="flex-1 bg-primary hover:bg-primary-hover text-primary-foreground cursor-pointer"
                       asChild
                     >
                       <a href={project.playStoreUrl} target="_blank" rel="noopener noreferrer">
@@ -111,7 +111,7 @@ export function Projects() {
                     </Button>
                   )}
                   {project.githubUrl && (
-                    <Button variant="outline" size="sm" asChild>
+                    <Button variant="outline" size="sm" asChild className="cursor-pointer">
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
                       </a>
