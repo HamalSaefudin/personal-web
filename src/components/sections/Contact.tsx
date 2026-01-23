@@ -26,7 +26,8 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
+    <section id="contact" className="py-20 relative overflow-hidden" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" className="sr-only">Contact Information</h2>
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-background -z-10" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>

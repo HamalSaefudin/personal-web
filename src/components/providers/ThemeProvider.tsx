@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 
 type Theme = "light" | "dark" | "system";
 
@@ -24,48 +24,57 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
+function getResolvedTheme(theme: Theme, isSystemDark: boolean): "light" | "dark" {
+  if (theme === "system") {
+    return isSystemDark ? "dark" : "light";
+  }
+  return theme;
+}
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
   storageKey = "theme",
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [theme, setThemeState] = useState<Theme>(defaultTheme);
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
+  const [isSystemDark, setIsSystemDark] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem(storageKey) as Theme;
+    const stored = localStorage.getItem(storageKey) as Theme | null;
     if (stored) {
-      setTheme(stored);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setThemeState(stored);
     }
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsSystemDark(mediaQuery.matches);
+
+    const listener = (e: MediaQueryListEvent) => {
+      setIsSystemDark(e.matches);
+    };
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
   }, [storageKey]);
 
   useEffect(() => {
-    if (!mounted) return;
-
-    const root = document.documentElement;
-    let resolved: "light" | "dark" = "light";
-
-    if (theme === "system") {
-      resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    } else {
-      resolved = theme;
-    }
-
+    const resolved = getResolvedTheme(theme, isSystemDark);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResolvedTheme(resolved);
+    const root = document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(resolved);
-  }, [theme, mounted]);
+  }, [theme, isSystemDark]);
+
+  const setTheme = useCallback((newTheme: Theme) => {
+    localStorage.setItem(storageKey, newTheme);
+    setThemeState(newTheme);
+  }, [storageKey]);
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
+    setTheme,
     resolvedTheme,
   };
 

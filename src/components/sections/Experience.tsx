@@ -53,7 +53,8 @@ export function Experience() {
   const reducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
-    <section id="experience" className="py-12 px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-12 px-4 sm:px-6 lg:px-8" aria-labelledby="experience-heading">
+      <h2 id="experience-heading" className="sr-only">Experience History</h2>
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}

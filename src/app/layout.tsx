@@ -11,7 +11,11 @@ const inter = Inter({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#10B981",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0F172A" },
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { color: "#10B981" },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -36,6 +40,7 @@ export const metadata: Metadata = {
   creator: "Hamal",
   publisher: "Hamal",
   robots: "index, follow",
+  category: "technology",
   openGraph: {
     type: "website",
     locale: "en_US",

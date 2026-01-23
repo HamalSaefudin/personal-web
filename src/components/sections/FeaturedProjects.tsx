@@ -62,7 +62,8 @@ export function FeaturedProjects() {
   const reducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
-    <section id="projects" className="py-12 px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-12 px-4 sm:px-6 lg:px-8" aria-labelledby="projects-heading">
+      <h2 id="projects-heading" className="sr-only">Featured Projects</h2>
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
@@ -83,13 +84,14 @@ export function FeaturedProjects() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <AnimatePresence>
             {visibleProjects.map((project, index) => (
-              <motion.div
+              <motion.button
                 key={project.title}
                 initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reducedMotion ? 0 : -20 }}
                 transition={{ duration: reducedMotion ? 0.1 : 0.3, delay: reducedMotion ? 0 : index * 0.05 }}
-                className="bg-card rounded-2xl border border-border p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
+                className="bg-card rounded-2xl border border-border p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer w-full text-left border-border bg-card text-card-foreground"
+                onClick={() => project.link && window.open(project.link, '_blank')}
               >
                 <div className="flex items-start justify-between mb-4">
                   <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded">
@@ -110,18 +112,12 @@ export function FeaturedProjects() {
                   ))}
                 </div>
                 {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary-hover transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
+                  <span className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary-hover transition-colors">
                     View Project
                     <ExternalLink className="h-3 w-3" />
-                  </a>
+                  </span>
                 )}
-              </motion.div>
+              </motion.button>
             ))}
           </AnimatePresence>
         </div>

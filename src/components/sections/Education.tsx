@@ -10,7 +10,8 @@ export function Education() {
   const isDark = resolvedTheme === "dark";
 
   return (
-    <section id="education" className="py-12 px-4 sm:px-6 lg:px-8">
+    <section id="education" className="py-12 px-4 sm:px-6 lg:px-8" aria-labelledby="education-heading">
+      <h2 id="education-heading" className="sr-only">Education</h2>
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
@@ -25,7 +26,7 @@ export function Education() {
         >
           <div className="flex items-start gap-4">
             <div className={`w-12 h-12 rounded-lg border-2 flex items-center justify-center flex-shrink-0 ${isDark ? "border-slate-700 bg-slate-800" : "border-gray-200 bg-white"}`}>
-              <Building2 className={`h-6 w-6 ${isDark ? "text-blue-400" : "text-blue-600"}`} />
+              <Building2 data-testid="building-icon" className={`h-6 w-6 ${isDark ? "text-blue-400" : "text-blue-600"}`} />
             </div>
             <div className="flex-1">
               <h3 className={`text-xl font-semibold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>Binus University</h3>

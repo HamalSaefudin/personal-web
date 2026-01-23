@@ -46,13 +46,14 @@ export function Header() {
             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
               <Image
                 src="/newavatar.png"
-                alt="Hamal Saefudin"
+                alt="Hamal Saefudin - Profile Photo"
                 width={40}
                 height={40}
                 className="w-full h-full object-cover"
+                priority
               />
             </div>
-            <a href="#" className="text-lg font-bold text-foreground">
+            <a href="#" className="text-lg font-bold text-foreground" aria-label="Hamal Saefudin - Home">
               Hamal.dev
             </a>
           </div>

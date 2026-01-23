@@ -54,7 +54,7 @@ export function Hero() {
           className="mb-8"
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-            Hi, I'm <span className="text-primary">Hamal</span>
+            Hi, I&apos;m <span className="text-primary">Hamal</span>
           </h1>
           <p className="text-xl text-foreground-secondary max-w-3xl">
             Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS development.
@@ -111,13 +111,14 @@ export function Hero() {
             const Icon = skill.icon;
             const bgClass = isDark && skill.bgColorDark ? skill.bgColorDark : skill.bgColor;
             return (
-              <motion.div
+              <motion.button
                 key={skill.title}
                 initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: reducedMotion ? 0.1 : 0.5, delay: reducedMotion ? 0 : 0.1 + index * 0.1 }}
-                className={`${bgClass} rounded-2xl p-6 relative overflow-hidden flex flex-col cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}
+                className={`${bgClass} rounded-2xl p-6 relative overflow-hidden flex flex-col cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 w-full text-left border-0`}
                 style={{ minHeight: "180px" }}
+                onClick={() => {}}
               >
                 <Icon className={`absolute bottom-10 right-4 w-28 h-28 ${skill.iconColor} opacity-15`} />
                 
@@ -153,7 +154,7 @@ export function Hero() {
                   </div>
                 )}
                 </div>
-              </motion.div>
+              </motion.button>
             );
           })}
         </div>
