@@ -48,20 +48,11 @@ export const metadata: Metadata = {
     siteName: "Hamal",
     title: "Hamal | Mobile Application Developer",
     description: "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS. Based in Jakarta, Indonesia.",
-    // images: [
-    //   {
-    //     url: "/newavatar.png",
-    //     width: 1200,
-    //     height: 1200,
-    //     alt: "Hamal",
-    //   },
-    // ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hamal | Mobile Application Developer",
     description: "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS.",
-    // images: ["/newavatar.png"],
     creator: "@hamaltech",
   },
   icons: {
