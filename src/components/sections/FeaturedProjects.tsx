@@ -2,125 +2,130 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const projects = [
   {
     title: "DDMS Mobile Apps",
-    tag: "MOBILE APP",
+    category: "Mobile App",
+    year: "2023",
     description: "Blood Donor Management System mobile application for Triputra Group",
-    tech: ["React Native", "Expo SDK", "Redux"],
+    tech: "React Native, Expo SDK, Redux",
     link: "https://play.google.com/store/apps/details?id=id.co.dayagroup.ddms",
   },
   {
     title: "Prohace",
-    tag: "HR TECH",
+    category: "HR Tech",
+    year: "2023",
     description: "HR management and employee solutions platform for Eksad Technology",
-    tech: ["React Native", "Flutter", "Redux Saga"],
+    tech: "React Native, Flutter, Redux Saga",
     link: "https://play.google.com/store/apps/details?id=com.eksad.cx.prohace",
   },
   {
     title: "Danamas App",
-    tag: "FINTECH",
+    category: "Fintech",
+    year: "2023",
     description: "Peer-to-peer lending mobile application for borrowers",
-    tech: ["React Native", "TypeScript", "Jest"],
+    tech: "React Native, TypeScript, Jest",
     link: "https://play.google.com/store/apps/details?id=com.danamas.mergingapp",
   },
   {
     title: "Mantis Go",
-    tag: "MOBILE APP",
+    category: "Mobile App",
+    year: "2022",
     description: "Mobile application for collectors at Mandala Multifinance",
-    tech: ["React Native", "SQLite", "Redux Toolkit"],
+    tech: "React Native, SQLite, Redux Toolkit",
     link: "https://play.google.com/store/apps/details?id=com.mantisgo",
   },
   {
     title: "Miruum",
-    tag: "HOTEL BOOKING",
-    description: "Hotel booking mobile application (not released)",
-    tech: ["React Native", "TypeScript", "Redux Toolkit Query"],
+    category: "Hotel Booking",
+    year: "2022",
+    description: "Hotel booking mobile application",
+    tech: "React Native, TypeScript, Redux Toolkit Query",
     link: "https://www.instagram.com/miruum.id/",
   },
   {
-    title: "Agent Aid",
-    tag: "HR TECH",
-    description: "Internal mobile application for agent recruitment at insurance company",
-    tech: ["React Native", "Azure AD", "WatermelonDB"],
-  },
-  {
     title: "Mirecruit",
-    tag: "HR TECH",
+    category: "HR Tech",
+    year: "2021",
     description: "Agent recruitment mobile application for Manulife",
-    tech: ["React Native", "JWT", "CodePush"],
+    tech: "React Native, JWT, CodePush",
     link: "https://play.google.com/store/apps/details?id=com.manulife",
   },
 ];
 
+const itemVariants = {
+  hidden: { opacity: 0, x: -6 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { delay: i * 0.04, duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
+  }),
+  exit: { opacity: 0, x: -6, transition: { duration: 0.2 } },
+};
+
 export function FeaturedProjects() {
   const [showAll, setShowAll] = useState(false);
-  const visibleProjects = showAll ? projects : projects.slice(0, 3);
-  const reducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const visibleProjects = showAll ? projects : projects.slice(0, 4);
 
   return (
-    <section id="projects" className="py-12 px-4 sm:px-6 lg:px-8" aria-labelledby="projects-heading">
-      <h2 id="projects-heading" className="sr-only">Featured Projects</h2>
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reducedMotion ? 0.1 : 0.5 }}
-          className="flex items-center justify-between mb-6"
+    <section id="projects" className="py-12">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+        <motion.h2
+          className="text-sm font-medium text-foreground-secondary uppercase tracking-wider mb-6"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.35 }}
         >
-          <h2 className="text-2xl font-bold text-foreground">Featured Projects</h2>
-          <Button
-            variant="ghost"
-            onClick={() => setShowAll(!showAll)}
-            className="text-foreground-muted hover:text-foreground text-sm cursor-pointer"
-          >
-            {showAll ? "Show Less" : "View All"}
-          </Button>
-        </motion.div>
+          Selected Projects
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence>
-            {visibleProjects.map((project, index) => (
-              <motion.button
+        <div className="divide-y divide-border">
+          <AnimatePresence mode="popLayout">
+            {visibleProjects.map((project, i) => (
+              <motion.div
                 key={project.title}
-                initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: reducedMotion ? 0 : -20 }}
-                transition={{ duration: reducedMotion ? 0.1 : 0.3, delay: reducedMotion ? 0 : index * 0.05 }}
-                className="bg-card rounded-2xl border border-border p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer w-full text-left border-border bg-card text-card-foreground"
-                onClick={() => project.link && window.open(project.link, '_blank')}
+                className="py-5"
+                variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, margin: "-40px" }}
+                custom={i}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded">
-                    {project.tag}
-                  </span>
-                  <ArrowUpRight className="h-5 w-5 text-foreground-muted group-hover:text-primary transition-colors" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{project.title}</h3>
-                <p className="text-sm text-foreground-muted mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-muted text-foreground-muted text-xs rounded"
+                <div className="flex items-baseline justify-between gap-2 mb-1">
+                  {project.link ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold hover:opacity-70 transition-opacity"
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      {project.title}
+                    </a>
+                  ) : (
+                    <span className="font-semibold">{project.title}</span>
+                  )}
+                  <span className="text-sm text-foreground-secondary tabular-nums flex-shrink-0">{project.year}</span>
                 </div>
-                {project.link && (
-                  <span className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary-hover transition-colors">
-                    View Project
-                    <ExternalLink className="h-3 w-3" />
-                  </span>
-                )}
-              </motion.button>
+                <p className="text-sm text-foreground-secondary mb-1">{project.description}</p>
+                <p className="text-xs text-foreground-secondary">{project.tech}</p>
+              </motion.div>
             ))}
           </AnimatePresence>
         </div>
+
+        {projects.length > 4 && (
+          <motion.button
+            onClick={() => setShowAll(!showAll)}
+            className="mt-4 text-sm font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {showAll ? "Show less" : `View all ${projects.length} projects`}
+          </motion.button>
+        )}
       </div>
     </section>
   );

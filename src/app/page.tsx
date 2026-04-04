@@ -13,7 +13,7 @@ export default function Home() {
     <ThemeProvider>
       <div className="min-h-screen bg-background">
         <Header />
-        <main id="main-content">
+        <main id="main-content" className="pt-12">
           <Hero />
           <Experience />
           <Education />

@@ -48,7 +48,6 @@ export function ThemeProvider({
     }
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsSystemDark(mediaQuery.matches);
 
     const listener = (e: MediaQueryListEvent) => {

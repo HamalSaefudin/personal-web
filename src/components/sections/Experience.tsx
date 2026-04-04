@@ -1,154 +1,107 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const experiences = [
   {
     role: "Mobile Application Developer",
     company: "PT. Tiga Daya Digital Indonesia (Triputra Group)",
     period: "Sep 2023 - Present",
-    type: "FULLTIME",
-    isCurrent: true,
+    type: "Full-time",
     description: "Update react native & expo SDK version for current HRIS application",
   },
   {
     role: "Frontend Developer",
     company: "Danamas",
     period: "Jul 2023 - Sep 2023",
-    type: "CONTRACT",
-    isCurrent: false,
-    description: "Develop and maintain feature danamas borrower mobile apps using react native and typescript",
+    type: "Contract",
+    description: "Develop and maintain Danamas borrower mobile apps using React Native and TypeScript",
   },
   {
     role: "Mobile Application Developer",
     company: "Mandala Multifinance",
     period: "Mar 2022 - Jul 2023",
-    type: "FULLTIME",
-    isCurrent: false,
+    type: "Full-time",
     description: "Develop interactive mobile apps for our collector",
   },
   {
     role: "Freelance Mobile Application Developer",
     company: "KODEGIRI",
     period: "Feb 2022 - Okt 2022",
-    type: "FREELANCE",
-    isCurrent: false,
-    description: "Develop android & ios mobile application for booking hotel using React Native & Typescript",
+    type: "Freelance",
+    description: "Develop Android & iOS mobile application for booking hotel using React Native & TypeScript",
   },
   {
     role: "Frontend Developer",
     company: "Quadrant Synergy International",
-    period: "Agu 2019 - Mar 2022",
-    type: "FULLTIME",
-    isCurrent: false,
+    period: "Aug 2019 - Mar 2022",
+    type: "Full-time",
     description: "Developing a website for a real estate purchasing company using React.js, Redux, and Redux Saga",
   },
 ];
 
+const itemVariants = {
+  hidden: { opacity: 0, x: -6 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { delay: i * 0.04, duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
+  }),
+  exit: { opacity: 0, x: -6, transition: { duration: 0.2 } },
+};
+
 export function Experience() {
   const [showAll, setShowAll] = useState(false);
   const visibleExperiences = showAll ? experiences : experiences.slice(0, 3);
-  const reducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
-    <section id="experience" className="py-12 px-4 sm:px-6 lg:px-8" aria-labelledby="experience-heading">
-      <h2 id="experience-heading" className="sr-only">Experience History</h2>
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reducedMotion ? 0.1 : 0.5 }}
-          className="mb-6"
+    <section id="experience" className="py-12">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+        <motion.h2
+          className="text-sm font-medium text-foreground-secondary uppercase tracking-wider mb-6"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.35 }}
         >
-          <h2 className="text-2xl font-bold text-foreground">Experience History</h2>
-        </motion.div>
+          Experience
+        </motion.h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: reducedMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reducedMotion ? 0.1 : 0.5, delay: reducedMotion ? 0 : 0.1 }}
-          className="bg-card rounded-2xl border border-border overflow-hidden"
-        >
-          <div className="hidden lg:grid grid-cols-12 gap-4 px-6 py-3 bg-muted border-b border-border text-xs font-medium text-foreground-muted uppercase tracking-wider">
-            <div className="col-span-5">Role &amp; Company</div>
-            <div className="col-span-3">Period</div>
-            <div className="col-span-2">Type</div>
-            <div className="col-span-2">Description</div>
-          </div>
-
-          <div className="lg:hidden grid grid-cols-2 gap-2 px-4 py-3 bg-muted border-b border-border text-xs font-medium text-foreground-muted uppercase tracking-wider">
-            <div>Details</div>
-            <div className="text-right">Info</div>
-          </div>
-
-          <div className="divide-y divide-border">
-            {visibleExperiences.map((exp, index) => (
+        <div className="divide-y divide-border">
+          <AnimatePresence mode="popLayout">
+            {visibleExperiences.map((exp, i) => (
               <motion.div
                 key={`${exp.role}-${exp.company}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: reducedMotion ? 0.1 : 0.3, delay: reducedMotion ? 0 : index * 0.05 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-4 px-4 lg:px-6 py-4 items-start lg:items-center hover:bg-muted/50 transition-colors cursor-pointer"
+                className="py-5"
+                variants={itemVariants}
+                initial="hidden"
+                whileInView="visible"
+                exit="exit"
+                viewport={{ once: true, margin: "-40px" }}
+                custom={i}
               >
-                <div className="col-span-1 lg:col-span-5">
-                  <div className="flex items-center gap-2">
-                    {exp.isCurrent && (
-                      <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-1 lg:mt-0" />
-                    )}
-                    <div>
-                      <span className="font-medium text-foreground block">{exp.role}</span>
-                      <span className="text-sm text-foreground-muted">{exp.company}</span>
-                    </div>
-                  </div>
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+                  <h3 className="font-semibold">{exp.role}</h3>
+                  <span className="text-sm text-foreground-secondary tabular-nums">{exp.period}</span>
                 </div>
-                <div className="col-span-1 lg:col-span-3 text-sm text-foreground-muted">
-                  <span className="lg:hidden font-medium text-xs text-foreground-muted uppercase tracking-wider">Period: </span>
-                  {exp.period}
-                </div>
-                <div className="col-span-1 lg:col-span-2">
-                  <span className="lg:hidden font-medium text-xs text-foreground-muted uppercase tracking-wider">Type: </span>
-                  <span
-                    className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                      exp.type === "FULLTIME"
-                        ? "bg-primary/10 text-primary"
-                        : exp.type === "CONTRACT"
-                        ? "bg-secondary/10 text-secondary"
-                        : "bg-accent/10 text-accent"
-                    }`}
-                  >
-                    {exp.type}
-                  </span>
-                </div>
-                <div className="col-span-1 lg:col-span-2 text-sm text-foreground-muted">
-                  <span className="lg:hidden font-medium text-xs text-foreground-muted uppercase tracking-wider">Description: </span>
-                  {exp.description}
-                </div>
+                <p className="text-sm text-foreground-secondary mb-1">{exp.company}</p>
+                <p className="text-sm text-foreground-secondary">{exp.description}</p>
               </motion.div>
             ))}
-          </div>
+          </AnimatePresence>
+        </div>
 
-          <div className="px-4 lg:px-6 py-4 border-t border-border">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="flex items-center gap-1 text-sm text-foreground-muted hover:text-foreground transition-colors cursor-pointer"
-              aria-label={showAll ? "Show less experiences" : "Show more experiences"}
-            >
-              {showAll ? (
-                <>
-                  Show Less
-                  <ChevronUp className="h-4 w-4" />
-                </>
-              ) : (
-                <>
-                  Show More
-                  <ChevronDown className="h-4 w-4" />
-                </>
-              )}
-            </button>
-          </div>
-        </motion.div>
+        {experiences.length > 3 && (
+          <motion.button
+            onClick={() => setShowAll(!showAll)}
+            className="mt-4 text-sm font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {showAll ? "Show less" : `Show all ${experiences.length} positions`}
+          </motion.button>
+        )}
       </div>
     </section>
   );

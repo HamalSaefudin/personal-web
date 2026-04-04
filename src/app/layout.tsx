@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
 });
 
@@ -48,20 +48,20 @@ export const metadata: Metadata = {
     siteName: "Hamal",
     title: "Hamal | Mobile Application Developer",
     description: "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS. Based in Jakarta, Indonesia.",
-    images: [
-      {
-        url: "/newavatar.png",
-        width: 1200,
-        height: 1200,
-        alt: "Hamal",
-      },
-    ],
+    // images: [
+    //   {
+    //     url: "/newavatar.png",
+    //     width: 1200,
+    //     height: 1200,
+    //     alt: "Hamal",
+    //   },
+    // ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hamal | Mobile Application Developer",
     description: "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS.",
-    images: ["/newavatar.png"],
+    // images: ["/newavatar.png"],
     creator: "@hamaltech",
   },
   icons: {
@@ -86,7 +86,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${inter.variable} antialiased min-h-screen bg-background text-foreground`}>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased min-h-screen bg-background text-foreground`}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-lg focus:font-medium"
