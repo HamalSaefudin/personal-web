@@ -1,3 +1,4 @@
+import { GridBackground } from "@/components/GridBackground";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
@@ -12,8 +13,9 @@ export default function Home() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background">
+        {/* <GridBackground /> */}
         <Header />
-        <main id="main-content" className="pt-12">
+        <main id="main-content" className="relative z-10 pt-12">
           <Hero />
           <Experience />
           <Education />

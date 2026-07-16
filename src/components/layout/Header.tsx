@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { Sun, Moon } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 
 const navItems = [
   { name: "Overview", href: "#overview" },
@@ -73,45 +74,40 @@ export function Header() {
               )}
             </button>
 
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="sm:hidden p-1.5 text-foreground-secondary hover:text-foreground transition-colors"
-              aria-label="Toggle menu"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {menuOpen ? (
-                  <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                ) : (
-                  <>
+            <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+              <SheetTrigger asChild>
+                <button
+                  className="sm:hidden p-1.5 text-foreground-secondary hover:text-foreground transition-colors"
+                  aria-label="Toggle menu"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 5H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                     <path d="M2 11H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  </>
-                )}
-              </svg>
-            </button>
+                  </svg>
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-3/4 sm:max-w-sm">
+                <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+                <div className="flex flex-col gap-1 p-6 pt-14">
+                  {navItems.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className={`text-sm font-medium py-2 transition-colors ${
+                        activeTab === item.name
+                          ? "text-foreground"
+                          : "text-foreground-secondary hover:text-foreground"
+                      }`}
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {menuOpen && (
-          <div className="sm:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-3">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`text-sm font-medium ${
-                    activeTab === item.name
-                      ? "text-foreground"
-                      : "text-foreground-secondary hover:text-foreground"
-                  }`}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </nav>
     </header>
   );

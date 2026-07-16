@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCanHover } from "@/hooks/useCanHover";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 const experiences = [
   {
@@ -53,20 +55,13 @@ const itemVariants = {
 
 export function Experience() {
   const [showAll, setShowAll] = useState(false);
+  const canHover = useCanHover();
   const visibleExperiences = showAll ? experiences : experiences.slice(0, 3);
 
   return (
     <section id="experience" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <motion.h2
-          className="text-sm font-medium text-foreground-secondary uppercase tracking-wider mb-6"
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.35 }}
-        >
-          Experience
-        </motion.h2>
+        <SectionEyebrow>Experience</SectionEyebrow>
 
         <div className="divide-y divide-border">
           <AnimatePresence mode="popLayout">
@@ -96,7 +91,7 @@ export function Experience() {
           <motion.button
             onClick={() => setShowAll(!showAll)}
             className="mt-4 text-sm font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
-            whileHover={{ scale: 1.02 }}
+            whileHover={canHover ? { scale: 1.02 } : undefined}
             whileTap={{ scale: 0.98 }}
           >
             {showAll ? "Show less" : `Show all ${experiences.length} positions`}

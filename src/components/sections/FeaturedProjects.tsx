@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCanHover } from "@/hooks/useCanHover";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 const projects = [
   {
     title: "DDMS Mobile Apps",
     category: "Mobile App",
     year: "2023",
-    description: "Blood Donor Management System mobile application for Triputra Group",
+    description:
+      "Blood Donor Management System mobile application for Triputra Group",
     tech: "React Native, Expo SDK, Redux",
     link: "https://play.google.com/store/apps/details?id=id.co.dayagroup.ddms",
   },
@@ -16,7 +19,8 @@ const projects = [
     title: "Prohace",
     category: "HR Tech",
     year: "2023",
-    description: "HR management and employee solutions platform for Eksad Technology",
+    description:
+      "HR management and employee solutions platform for Eksad Technology",
     tech: "React Native, Flutter, Redux Saga",
     link: "https://play.google.com/store/apps/details?id=com.eksad.cx.prohace",
   },
@@ -59,27 +63,24 @@ const itemVariants = {
   visible: (i: number) => ({
     opacity: 1,
     x: 0,
-    transition: { delay: i * 0.04, duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
+    transition: {
+      delay: i * 0.04,
+      duration: 0.3,
+      ease: [0.25, 0.1, 0.25, 1] as const,
+    },
   }),
   exit: { opacity: 0, x: -6, transition: { duration: 0.2 } },
 };
 
 export function FeaturedProjects() {
   const [showAll, setShowAll] = useState(false);
+  const canHover = useCanHover();
   const visibleProjects = showAll ? projects : projects.slice(0, 4);
 
   return (
     <section id="projects" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <motion.h2
-          className="text-sm font-medium text-foreground-secondary uppercase tracking-wider mb-6"
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.35 }}
-        >
-          Selected Projects
-        </motion.h2>
+        <SectionEyebrow>Selected Projects</SectionEyebrow>
 
         <div className="divide-y divide-border">
           <AnimatePresence mode="popLayout">
@@ -107,10 +108,16 @@ export function FeaturedProjects() {
                   ) : (
                     <span className="font-semibold">{project.title}</span>
                   )}
-                  <span className="text-sm text-foreground-secondary tabular-nums flex-shrink-0">{project.year}</span>
+                  <span className="text-sm text-foreground-secondary tabular-nums flex-shrink-0">
+                    {project.year}
+                  </span>
                 </div>
-                <p className="text-sm text-foreground-secondary mb-1">{project.description}</p>
-                <p className="text-xs text-foreground-secondary">{project.tech}</p>
+                <p className="text-sm text-foreground-secondary mb-1">
+                  {project.description}
+                </p>
+                <p className="text-xs text-foreground-secondary">
+                  {project.tech}
+                </p>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -120,7 +127,7 @@ export function FeaturedProjects() {
           <motion.button
             onClick={() => setShowAll(!showAll)}
             className="mt-4 text-sm font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
-            whileHover={{ scale: 1.02 }}
+            whileHover={canHover ? { scale: 1.02 } : undefined}
             whileTap={{ scale: 0.98 }}
           >
             {showAll ? "Show less" : `View all ${projects.length} projects`}

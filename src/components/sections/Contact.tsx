@@ -1,20 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 export function Contact() {
   return (
     <section id="contact" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <motion.h2
-          className="text-sm font-medium text-foreground-secondary uppercase tracking-wider mb-6"
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.35 }}
-        >
-          Contact
-        </motion.h2>
+        <SectionEyebrow>Contact</SectionEyebrow>
 
         <div className="space-y-4">
           <motion.p

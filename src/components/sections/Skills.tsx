@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 export function Skills() {
   const skills = [
@@ -21,15 +22,7 @@ export function Skills() {
   return (
     <section id="skills" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <motion.h2
-          className="text-sm font-medium text-foreground-secondary uppercase tracking-wider mb-6"
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.35 }}
-        >
-          Skills
-        </motion.h2>
+        <SectionEyebrow>Skills</SectionEyebrow>
 
         <div className="flex flex-wrap gap-x-4 gap-y-2">
           {skills.map((skill, i) => (

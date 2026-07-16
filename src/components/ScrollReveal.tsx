@@ -36,7 +36,11 @@ export function ScrollReveal({
       ref={ref}
       initial={animations[animation]}
       animate={isInView ? { opacity: 1, y: 0, x: 0 } : animations[animation]}
-      transition={{ duration: reducedMotion ? 0.1 : 0.6, delay: reducedMotion ? 0 : delay }}
+      transition={{
+        duration: reducedMotion ? 0.1 : 0.4,
+        delay: reducedMotion ? 0 : delay,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
       className={className}
     >
       {children}
