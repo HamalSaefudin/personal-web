@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { Sun, Moon } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 
 const navItems = [
   { name: "Overview", href: "#overview" },
@@ -88,6 +88,9 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="right" className="w-3/4 sm:max-w-sm">
                 <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+                <SheetDescription className="sr-only">
+                  Navigate to sections of the portfolio.
+                </SheetDescription>
                 <div className="flex flex-col gap-1 p-6 pt-14">
                   {navItems.map((item) => (
                     <a

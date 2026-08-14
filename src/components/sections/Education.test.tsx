@@ -23,13 +23,11 @@ describe('Education', () => {
     expect(screen.getByText('Binus University')).toBeInTheDocument();
     expect(screen.getByText('Bachelor of Computer Science')).toBeInTheDocument();
     expect(screen.getByText('Jun 2020 - Jul 2024')).toBeInTheDocument();
-    expect(screen.getByText('• Completed')).toBeInTheDocument();
   });
 
-  it('renders Building2 icon', () => {
+  it('renders the education eyebrow', () => {
     renderWithTheme('light');
-    const icon = screen.getByTestId('building-icon');
-    expect(icon).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Education' })).toBeInTheDocument();
   });
 
   it('applies correct styles for light mode', () => {

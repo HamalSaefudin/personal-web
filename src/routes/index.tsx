@@ -1,19 +1,22 @@
-import { GridBackground } from "@/components/GridBackground";
-import { Header } from "@/components/layout/Header";
+import { createFileRoute } from "@tanstack/react-router";
 import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/sections/Hero";
-import { Experience } from "@/components/sections/Experience";
-import { Education } from "@/components/sections/Education";
-import { Skills } from "@/components/sections/Skills";
-import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
-import { Contact } from "@/components/sections/Contact";
+import { Header } from "@/components/layout/Header";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Contact } from "@/components/sections/Contact";
+import { Education } from "@/components/sections/Education";
+import { Experience } from "@/components/sections/Experience";
+import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
+import { Hero } from "@/components/sections/Hero";
+import { Skills } from "@/components/sections/Skills";
 
-export default function Home() {
+export const Route = createFileRoute("/")({
+  component: Home,
+});
+
+function Home() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background">
-        {/* <GridBackground /> */}
         <Header />
         <main id="main-content" className="relative z-10 pt-12">
           <Hero />

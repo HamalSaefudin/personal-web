@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss/index.css";
 
 @theme inline {
   --color-background: var(--background);
@@ -20,6 +20,7 @@
   --primary-foreground: #FFFFFF;
   --card-paper: #F7F3EA;
   --grid-line: rgba(17, 17, 17, 0.08);
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 .dark {

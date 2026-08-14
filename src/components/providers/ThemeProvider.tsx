@@ -43,7 +43,6 @@ export function ThemeProvider({
   useEffect(() => {
     const stored = localStorage.getItem(storageKey) as Theme | null;
     if (stored) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setThemeState(stored);
     }
 
@@ -59,7 +58,6 @@ export function ThemeProvider({
 
   useEffect(() => {
     const resolved = getResolvedTheme(theme, isSystemDark);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResolvedTheme(resolved);
     const root = document.documentElement;
     root.classList.remove("light", "dark");
