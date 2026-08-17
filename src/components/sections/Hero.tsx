@@ -1,101 +1,102 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
+import { Button } from "@/components/ui/button";
 
-const itemVariants = {
+const links = [
+  { label: "GitHub", href: "https://github.com/HamalSaefudin" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/hamal-saefudin" },
+];
+
+const reveal = {
   hidden: { opacity: 0, y: 8 },
-  visible: (i: number) => ({
+  visible: (delay: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: i * 0.06,
-      duration: 0.35,
-      ease: [0.25, 0.1, 0.25, 1] as const,
-    },
+    transition: { delay, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
   }),
 };
 
 export function Hero() {
   return (
-    <section id="overview" className="pt-20 pb-16">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <motion.h1
-          className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 bg-gradient-to-b from-foreground to-foreground-secondary bg-clip-text text-transparent"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-        >
-          Hi, I&apos;m Hamal
-        </motion.h1>
+    <section id="overview" className="py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <SectionEyebrow number="01">Overview</SectionEyebrow>
 
-        <motion.p
-          className="text-lg text-foreground-secondary leading-relaxed mb-8 max-w-xl"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: 0.08 }}
-        >
-          Mobile Application Developer with 5+ years of expertise in React
-          Native, and ReactJS. Based in Jakarta, Indonesia.
-        </motion.p>
+          <motion.h1
+            className="text-balance text-5xl font-medium leading-[1.08] tracking-[-0.04em] text-ink sm:text-7xl"
+            initial="hidden"
+            animate="visible"
+            variants={reveal}
+            custom={0.04}
+          >
+            Hi, I&apos;m Hamal.
+          </motion.h1>
+
+          <motion.p
+            className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-foreground-secondary"
+            initial="hidden"
+            animate="visible"
+            variants={reveal}
+            custom={0.1}
+          >
+            Mobile Application Developer with 5+ years of expertise in React Native
+            and ReactJS. Based in Jakarta, Indonesia.
+          </motion.p>
+
+          <motion.div
+            className="mt-8 flex flex-wrap items-center justify-center gap-3"
+            initial="hidden"
+            animate="visible"
+            variants={reveal}
+            custom={0.16}
+          >
+            <Button asChild>
+              <a href="mailto:hamalsaefudin48@gmail.com?subject=Hiring Inquiry">
+                Get in touch
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            </Button>
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 rounded-[24px] border border-ink px-6 py-3.5 text-sm font-medium text-ink transition-[transform,background-color,color] duration-[160ms] ease-out hover:bg-ink hover:text-background active:scale-[0.97]"
+              >
+                {link.label}
+                <ArrowUpRight aria-hidden="true" className="size-4" />
+              </a>
+            ))}
+          </motion.div>
+        </div>
 
         <motion.div
-          className="flex flex-wrap gap-4 mb-12"
+          className="mx-auto mt-20 grid max-w-3xl grid-cols-2 border-y border-ink py-8 text-left sm:mt-28"
           initial="hidden"
           animate="visible"
-          variants={{
-            visible: {
-              transition: { staggerChildren: 0.04, delayChildren: 0.16 },
-            },
-          }}
+          variants={reveal}
+          custom={0.24}
         >
           {[
-            {
-              label: "Get in touch",
-              href: "mailto:hamalsaefudin48@gmail.com?subject=Hiring Inquiry",
-            },
-            { label: "GitHub", href: "https://github.com/HamalSaefudin" },
-            {
-              label: "LinkedIn",
-              href: "https://linkedin.com/in/hamal-saefudin",
-            },
-          ].map((link) => (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={
-                link.href.startsWith("http") ? "noopener noreferrer" : undefined
-              }
-              className="text-sm font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
-              variants={itemVariants}
-              custom={0}
-            >
-              {link.label}
-            </motion.a>
-          ))}
-        </motion.div>
-
-        <div className="flex items-start gap-10 sm:gap-14 border-t border-border pt-6">
-          {[
-            { value: "6+", label: "Years Experience" },
-            { value: "10+", label: "Projects Completed" },
-          ].map((stat, i) => (
-            <motion.div
+            { value: "6+", label: "Years experience" },
+            { value: "10+", label: "Projects completed" },
+          ].map((stat, index) => (
+            <div
               key={stat.label}
-              className={i > 0 ? "border-l border-border pl-10 sm:pl-14" : ""}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.24 + i * 0.06 }}
+              className={index === 1 ? "border-l border-ink pl-6 sm:pl-10" : "pr-6 sm:pr-10"}
             >
-              <p className="text-4xl font-bold tracking-tight bg-gradient-to-b from-primary to-primary/70 bg-clip-text text-transparent">
+              <p className="text-4xl font-medium tracking-[-0.04em] text-ink sm:text-5xl">
                 {stat.value}
               </p>
-              <p className="text-sm text-foreground-secondary mt-1">
-                {stat.label}
-              </p>
-            </motion.div>
+              <p className="mt-2 text-sm text-foreground-secondary">{stat.label}</p>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
