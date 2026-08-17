@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useCanHover } from "@/hooks/useCanHover";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 const projects = [
@@ -10,8 +10,7 @@ const projects = [
     title: "DDMS Mobile Apps",
     category: "Mobile App",
     year: "2023",
-    description:
-      "Blood Donor Management System mobile application for Triputra Group",
+    description: "Blood Donor Management System mobile application for Triputra Group",
     tech: "React Native, Expo SDK, Redux",
     link: "https://play.google.com/store/apps/details?id=id.co.dayagroup.ddms",
   },
@@ -19,8 +18,7 @@ const projects = [
     title: "Prohace",
     category: "HR Tech",
     year: "2023",
-    description:
-      "HR management and employee solutions platform for Eksad Technology",
+    description: "HR management and employee solutions platform for Eksad Technology",
     tech: "React Native, Flutter, Redux Saga",
     link: "https://play.google.com/store/apps/details?id=com.eksad.cx.prohace",
   },
@@ -59,35 +57,30 @@ const projects = [
 ];
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -6 },
+  hidden: { opacity: 0, y: 8 },
   visible: (i: number) => ({
     opacity: 1,
-    x: 0,
-    transition: {
-      delay: i * 0.04,
-      duration: 0.3,
-      ease: [0.25, 0.1, 0.25, 1] as const,
-    },
+    y: 0,
+    transition: { delay: i * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
   }),
-  exit: { opacity: 0, x: -6, transition: { duration: 0.2 } },
+  exit: { opacity: 0, y: 8, transition: { duration: 0.18 } },
 };
 
 export function FeaturedProjects() {
   const [showAll, setShowAll] = useState(false);
-  const canHover = useCanHover();
   const visibleProjects = showAll ? projects : projects.slice(0, 4);
 
   return (
-    <section id="projects" className="py-12">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+    <section id="projects" className="py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionEyebrow number="05">Selected Projects</SectionEyebrow>
 
-        <div className="divide-y divide-border">
+        <div className="grid gap-6 md:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {visibleProjects.map((project, i) => (
-              <motion.div
+              <motion.article
                 key={project.title}
-                className="py-5"
+                className="rounded-[24px] border border-ink bg-cream-paper p-6 sm:p-8"
                 variants={itemVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -95,43 +88,43 @@ export function FeaturedProjects() {
                 viewport={{ once: true, margin: "-40px" }}
                 custom={i}
               >
-                <div className="flex items-baseline justify-between gap-2 mb-1">
-                  {project.link ? (
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-[0.18em] text-foreground-secondary">
+                      {project.category}
+                    </p>
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold hover:opacity-70 transition-opacity"
+                      className="mt-3 inline-flex items-center gap-2 text-xl font-medium tracking-[-0.02em] text-ink transition-[transform,color] duration-200 ease-out hover:translate-x-0.5"
                     >
                       {project.title}
+                      <ArrowUpRight aria-hidden="true" className="size-4" />
                     </a>
-                  ) : (
-                    <span className="font-semibold">{project.title}</span>
-                  )}
-                  <span className="text-sm text-foreground-secondary tabular-nums flex-shrink-0">
+                  </div>
+                  <span className="shrink-0 text-sm tabular-nums text-foreground-secondary">
                     {project.year}
                   </span>
                 </div>
-                <p className="text-sm text-foreground-secondary mb-1">
+                <p className="mt-8 max-w-md text-base leading-7 text-foreground-secondary">
                   {project.description}
                 </p>
-                <p className="text-xs text-foreground-secondary">
+                <p className="mt-6 border-t border-ink/30 pt-4 text-sm text-foreground-secondary">
                   {project.tech}
                 </p>
-              </motion.div>
+              </motion.article>
             ))}
           </AnimatePresence>
         </div>
 
         {projects.length > 4 && (
-          <motion.button
+          <button
             onClick={() => setShowAll(!showAll)}
-            className="mt-4 text-sm font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
-            whileHover={canHover ? { scale: 1.02 } : undefined}
-            whileTap={{ scale: 0.98 }}
+            className="mt-6 inline-flex min-h-10 items-center rounded-full border border-ink px-4 text-sm font-medium text-ink transition-[transform,background-color,color] duration-[160ms] ease-out hover:bg-ink hover:text-background active:scale-[0.97]"
           >
             {showAll ? "Show less" : `View all ${projects.length} projects`}
-          </motion.button>
+          </button>
         )}
       </div>
     </section>

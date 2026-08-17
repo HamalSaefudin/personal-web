@@ -20,19 +20,20 @@ export function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-12">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+    <section id="skills" className="py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionEyebrow number="04">Skills</SectionEyebrow>
 
-        <div className="flex flex-wrap gap-x-4 gap-y-2">
+        <div className="flex max-w-4xl flex-wrap gap-2">
           {skills.map((skill, i) => (
             <motion.span
               key={skill.name}
-              className="text-sm"
+              aria-label={`${skill.name}: ${skill.level}`}
+              className="rounded-full border border-ink px-3 py-1.5 text-sm text-ink"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.2, delay: i * 0.03 }}
+              transition={{ duration: 0.2, delay: i * 0.04 }}
             >
               {skill.name}
             </motion.span>

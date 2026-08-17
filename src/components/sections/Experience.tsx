@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCanHover } from "@/hooks/useCanHover";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 const experiences = [
@@ -44,31 +43,30 @@ const experiences = [
 ];
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -6 },
+  hidden: { opacity: 0, y: 8 },
   visible: (i: number) => ({
     opacity: 1,
-    x: 0,
-    transition: { delay: i * 0.04, duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
+    y: 0,
+    transition: { delay: i * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
   }),
-  exit: { opacity: 0, x: -6, transition: { duration: 0.2 } },
+  exit: { opacity: 0, y: 8, transition: { duration: 0.18 } },
 };
 
 export function Experience() {
   const [showAll, setShowAll] = useState(false);
-  const canHover = useCanHover();
   const visibleExperiences = showAll ? experiences : experiences.slice(0, 3);
 
   return (
-    <section id="experience" className="py-12">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+    <section id="experience" className="py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionEyebrow number="02">Experience</SectionEyebrow>
 
-        <div className="divide-y divide-border">
+        <div className="divide-y divide-ink border-y border-ink">
           <AnimatePresence mode="popLayout">
             {visibleExperiences.map((exp, i) => (
               <motion.div
                 key={`${exp.role}-${exp.company}`}
-                className="py-5"
+                className="py-8"
                 variants={itemVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -77,25 +75,23 @@ export function Experience() {
                 custom={i}
               >
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                  <h3 className="font-semibold">{exp.role}</h3>
-                  <span className="text-sm text-foreground-secondary tabular-nums">{exp.period}</span>
+                  <h3 className="text-lg font-medium text-ink">{exp.role}</h3>
+                  <span className="text-sm tabular-nums text-foreground-secondary">{exp.period}</span>
                 </div>
-                <p className="text-sm text-foreground-secondary mb-1">{exp.company}</p>
-                <p className="text-sm text-foreground-secondary">{exp.description}</p>
+                <p className="text-sm text-foreground-secondary">{exp.company}</p>
+                <p className="mt-3 max-w-2xl text-base leading-7 text-foreground-secondary">{exp.description}</p>
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
 
         {experiences.length > 3 && (
-          <motion.button
+          <button
             onClick={() => setShowAll(!showAll)}
-            className="mt-4 text-sm font-medium underline underline-offset-2 hover:opacity-70 transition-opacity"
-            whileHover={canHover ? { scale: 1.02 } : undefined}
-            whileTap={{ scale: 0.98 }}
+            className="mt-6 inline-flex min-h-10 items-center rounded-full border border-ink px-4 text-sm font-medium text-ink transition-[transform,background-color,color] duration-[160ms] ease-out hover:bg-ink hover:text-background active:scale-[0.97]"
           >
             {showAll ? "Show less" : `Show all ${experiences.length} positions`}
-          </motion.button>
+          </button>
         )}
       </div>
     </section>
