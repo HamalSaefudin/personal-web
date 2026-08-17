@@ -13,7 +13,7 @@ export function SectionEyebrow({
 
   return (
     <motion.h2
-      className="mb-8 inline-flex items-center overflow-hidden rounded-full border border-ink text-xs font-medium uppercase tracking-[0.286em]"
+      className="mb-8 inline-flex items-stretch overflow-hidden rounded-full border border-ink text-xs font-medium uppercase tracking-[0.286em]"
       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
@@ -21,11 +21,11 @@ export function SectionEyebrow({
     >
       <span
         aria-hidden="true"
-        className="grid size-6 place-items-center bg-sunshine-highlight tracking-normal"
+        className="grid min-w-8 place-items-center bg-sunshine-highlight px-2 tracking-normal"
       >
         {number}
       </span>
-      <span className="px-3 py-1.5">{children}</span>
+      <span className="flex items-center px-4 py-1.5">{children}</span>
     </motion.h2>
   );
 }
