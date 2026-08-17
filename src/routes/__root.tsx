@@ -10,18 +10,6 @@ import { useState } from "react";
 import appCss from "../styles.css?url";
 import { Button } from "@/components/ui/button";
 
-const themeBootstrap = `
-  (function() {
-    try {
-      var theme = localStorage.getItem('theme');
-      var support = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-      if (theme === 'dark' || (!theme && support)) {
-        document.documentElement.classList.add('dark');
-      }
-    } catch (e) {}
-  })();
-`;
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -61,9 +49,7 @@ export const Route = createRootRoute({
           "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS.",
       },
       { name: "twitter:creator", content: "@hamaltech" },
-      { name: "theme-color", content: "#0F172A", media: "(prefers-color-scheme: dark)" },
-      { name: "theme-color", content: "#FFFFFF", media: "(prefers-color-scheme: light)" },
-      { name: "theme-color", content: "#10B981" },
+      { name: "theme-color", content: "#f8f5ed" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -71,14 +57,13 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap",
       },
       { rel: "canonical", href: "https://hamalsaefudin.com" },
       { rel: "icon", href: "/icon.png" },
       { rel: "shortcut icon", href: "/icon.png" },
       { rel: "apple-touch-icon", href: "/icon.png" },
     ],
-    scripts: [{ children: themeBootstrap }],
   }),
   component: RootDocument,
   errorComponent: RouteError,
@@ -87,7 +72,7 @@ export const Route = createRootRoute({
 
 function RootDocument() {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
