@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTheme } from "@/components/providers/ThemeProvider";
-import { Sun, Moon } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 
 const navItems = [
@@ -15,7 +13,6 @@ const navItems = [
 ];
 
 export function Header() {
-  const { setTheme, resolvedTheme } = useTheme();
   const [activeTab, setActiveTab] = useState("Overview");
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -38,14 +35,14 @@ export function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
-      <nav className="max-w-2xl mx-auto px-4 sm:px-6">
-        <div className="flex h-12 items-center justify-between">
+    <header className="border-b border-border">
+      <nav className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="flex min-h-20 items-center justify-between gap-6">
           <a href="#overview" className="text-sm font-semibold tracking-tight">
             Hamal
           </a>
 
-          <div className="hidden sm:flex items-center gap-5">
+          <div className="hidden items-center gap-5 sm:flex">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -61,19 +58,7 @@ export function Header() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              className="p-1.5 text-foreground-secondary hover:text-foreground transition-colors"
-              aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {resolvedTheme === "dark" ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </button>
-
+          <div className="flex items-center">
             <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
               <SheetTrigger asChild>
                 <button

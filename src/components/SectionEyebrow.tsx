@@ -2,17 +2,28 @@
 
 import { motion } from "framer-motion";
 
-export function SectionEyebrow({ children }: { children: React.ReactNode }) {
+export function SectionEyebrow({
+  number,
+  children,
+}: {
+  number: string;
+  children: React.ReactNode;
+}) {
   return (
     <motion.h2
-      className="flex items-center gap-2 text-sm font-medium text-foreground-secondary uppercase tracking-wider mb-6"
+      className="mb-8 inline-flex items-center overflow-hidden rounded-full border border-ink text-xs font-medium uppercase tracking-[0.286em]"
       initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
     >
-      <span className="h-px w-6 bg-gradient-to-r from-primary to-primary/0" aria-hidden="true" />
-      {children}
+      <span
+        aria-hidden="true"
+        className="grid size-6 place-items-center bg-sunshine-highlight tracking-normal"
+      >
+        {number}
+      </span>
+      <span className="px-3 py-1.5">{children}</span>
     </motion.h2>
   );
 }

@@ -20,6 +20,7 @@ describe('Education', () => {
 
   it('renders the education eyebrow', () => {
     renderEducation();
+    expect(screen.getByText('03')).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Education' })).toBeInTheDocument();
   });
 

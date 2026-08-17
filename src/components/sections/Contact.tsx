@@ -7,7 +7,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <SectionEyebrow>Contact</SectionEyebrow>
+        <SectionEyebrow number="06">Contact</SectionEyebrow>
 
         <div className="space-y-4">
           <motion.p

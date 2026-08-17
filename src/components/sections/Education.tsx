@@ -7,7 +7,7 @@ export function Education() {
   return (
     <section id="education" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <SectionEyebrow>Education</SectionEyebrow>
+        <SectionEyebrow number="03">Education</SectionEyebrow>
 
         <motion.div
           className="py-5 border-t border-border"

@@ -22,7 +22,7 @@ export function Skills() {
   return (
     <section id="skills" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <SectionEyebrow>Skills</SectionEyebrow>
+        <SectionEyebrow number="04">Skills</SectionEyebrow>
 
         <div className="flex flex-wrap gap-x-4 gap-y-2">
           {skills.map((skill, i) => (

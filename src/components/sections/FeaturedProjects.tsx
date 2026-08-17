@@ -80,7 +80,7 @@ export function FeaturedProjects() {
   return (
     <section id="projects" className="py-12">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        <SectionEyebrow>Selected Projects</SectionEyebrow>
+        <SectionEyebrow number="05">Selected Projects</SectionEyebrow>
 
         <div className="divide-y divide-border">
           <AnimatePresence mode="popLayout">
