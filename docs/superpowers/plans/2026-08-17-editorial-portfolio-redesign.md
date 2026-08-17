@@ -167,10 +167,10 @@ git commit -m "style: establish editorial light theme"
 
 - [ ] **Step 1: Add structural assertions for the numbered badge**
 
-Add a small render test to `Education.test.tsx` that renders the updated section and expects the `02` badge text and `Education` level-2 heading:
+Add a small render test to `Education.test.tsx` that renders the updated section and expects the `03` badge text and `Education` level-2 heading:
 
 ```tsx
-expect(screen.getByText("02")).toBeInTheDocument();
+expect(screen.getByText("03")).toBeInTheDocument();
 expect(screen.getByRole("heading", { level: 2, name: "Education" })).toBeInTheDocument();
 ```
 
