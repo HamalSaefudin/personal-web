@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 import { Button } from "@/components/ui/button";
@@ -10,16 +10,17 @@ const links = [
   { label: "LinkedIn", href: "https://linkedin.com/in/hamal-saefudin" },
 ];
 
-const reveal = {
-  hidden: { opacity: 0, y: 8 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
-  }),
-};
-
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+  const reveal = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 8 },
+    visible: (delay: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
+    }),
+  };
+
   return (
     <section id="overview" className="py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">

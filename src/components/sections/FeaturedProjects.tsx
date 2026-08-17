@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 
@@ -56,18 +56,18 @@ const projects = [
   },
 ];
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 8 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
-  }),
-  exit: { opacity: 0, y: 8, transition: { duration: 0.18 } },
-};
-
 export function FeaturedProjects() {
   const [showAll, setShowAll] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const itemVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 8 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
+    }),
+    exit: { opacity: 0, y: shouldReduceMotion ? 0 : 8, transition: { duration: 0.18 } },
+  };
   const visibleProjects = showAll ? projects : projects.slice(0, 4);
 
   return (
@@ -97,7 +97,7 @@ export function FeaturedProjects() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-2 text-xl font-medium tracking-[-0.02em] text-ink transition-[transform,color] duration-200 ease-out hover:translate-x-0.5"
+                      className="mt-3 inline-flex items-center gap-2 text-xl font-medium tracking-[-0.02em] text-ink transition-colors duration-200 ease-out hover:text-foreground-secondary"
                     >
                       {project.title}
                       <ArrowUpRight aria-hidden="true" className="size-4" />

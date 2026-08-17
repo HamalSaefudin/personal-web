@@ -1,11 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 import { Button } from "@/components/ui/button";
 
 export function Contact() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section id="contact" className="py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -14,7 +16,7 @@ export function Contact() {
 
           <motion.div
             className="rounded-[24px] border border-ink px-6 py-12 sm:px-12"
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}

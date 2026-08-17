@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 export function Education() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section id="education" className="py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -11,7 +13,7 @@ export function Education() {
 
         <motion.div
           className="border-y border-ink py-8"
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.35, delay: 0.06 }}

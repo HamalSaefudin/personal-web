@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 
 const experiences = [
@@ -42,18 +42,18 @@ const experiences = [
   },
 ];
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 8 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
-  }),
-  exit: { opacity: 0, y: 8, transition: { duration: 0.18 } },
-};
-
 export function Experience() {
   const [showAll, setShowAll] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const itemVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 8 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.05, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
+    }),
+    exit: { opacity: 0, y: shouldReduceMotion ? 0 : 8, transition: { duration: 0.18 } },
+  };
   const visibleExperiences = showAll ? experiences : experiences.slice(0, 3);
 
   return (
