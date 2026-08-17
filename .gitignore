@@ -16,6 +16,7 @@
 # TanStack Start / Vite
 /.output/
 /dist/
+/.worktrees/
 
 # Legacy local build artifacts
 /.next/
