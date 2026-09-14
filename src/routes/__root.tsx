@@ -49,7 +49,7 @@ export const Route = createRootRoute({
           "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS.",
       },
       { name: "twitter:creator", content: "@hamaltech" },
-      { name: "theme-color", content: "#f8f5ed" },
+      { name: "theme-color", content: "#0a0d12" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -57,12 +57,17 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=IBM+Plex+Mono:wght@400;600&display=swap",
       },
       { rel: "canonical", href: "https://hamalsaefudin.com" },
       { rel: "icon", href: "/icon.png" },
       { rel: "shortcut icon", href: "/icon.png" },
       { rel: "apple-touch-icon", href: "/icon.png" },
+    ],
+    scripts: [
+      {
+        children: `(function(){try{var t=localStorage.getItem("theme");if(!t){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})();`,
+      },
     ],
   }),
   component: RootDocument,
