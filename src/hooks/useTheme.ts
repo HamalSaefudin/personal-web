@@ -23,6 +23,9 @@ export function useTheme() {
       } catch {
         // storage unavailable; theme still applies for this session
       }
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", next === "dark" ? "#0a0d12" : "#f8fafc");
       return next;
     });
   }, []);

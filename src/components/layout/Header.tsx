@@ -48,13 +48,13 @@ export function Header() {
           <button
             type="button"
             onClick={toggleTheme}
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={isDark ? "DARK — switch to light mode" : "LIGHT — switch to dark mode"}
             className="flex items-center gap-2 border border-border px-[9px] py-[7px] text-foreground transition-colors hover:border-foreground-secondary"
           >
             {isDark ? (
-              <Moon className="size-[13px] text-accent" aria-hidden="true" />
+              <Moon className="size-[13px] text-accent-ink" aria-hidden="true" />
             ) : (
-              <Sun className="size-[13px] text-accent" aria-hidden="true" />
+              <Sun className="size-[13px] text-accent-ink" aria-hidden="true" />
             )}
             <span className="font-mono text-[10px] font-semibold tracking-[1px]">
               {isDark ? "DARK" : "LIGHT"}

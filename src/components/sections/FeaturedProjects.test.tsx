@@ -10,6 +10,7 @@ describe("FeaturedProjects", () => {
 
     expect(screen.getByText("DDMS Mobile Apps")).toBeInTheDocument();
     expect(screen.queryByText("Miruum")).not.toBeInTheDocument();
+    expect(screen.queryByText("Mantis Go")).not.toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: /load 3 more projects/i }));
     expect(screen.getByText("Miruum")).toBeInTheDocument();

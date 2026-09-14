@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 const experiences = [
   {
@@ -42,7 +42,7 @@ export function Experience() {
       <div className="mx-auto max-w-[958px] px-6 py-16 lg:px-[54px] lg:py-[76px]">
         <div className="flex flex-col gap-[54px] lg:flex-row">
           <div className="flex-1">
-            <p className="font-mono text-[11px] tracking-[1px] text-accent">
+            <p className="font-mono text-[11px] tracking-[1px] text-accent-ink">
               02 — EXPERIENCE &amp; EDUCATION
             </p>
             <h2 className="mt-[22px] text-[32px] font-semibold leading-[1.02] tracking-[-0.02em] text-foreground sm:text-[43px] sm:leading-[43px]">
@@ -60,7 +60,11 @@ export function Experience() {
               className="mt-8 flex items-center gap-[10px] border border-border px-4 py-3 font-mono text-[11px] font-semibold tracking-[0.6px] text-foreground transition-colors hover:border-foreground-secondary"
             >
               {showAll ? "SHOW LESS" : "VIEW ALL 5 POSITIONS"}
-              <Plus aria-hidden="true" className="size-[15px] text-accent" />
+              {showAll ? (
+                <Minus aria-hidden="true" className="size-[15px] text-accent" />
+              ) : (
+                <Plus aria-hidden="true" className="size-[15px] text-accent" />
+              )}
             </button>
           </div>
 
@@ -75,7 +79,7 @@ export function Experience() {
                   exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
                   transition={{ duration: 0.2, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
                 >
-                  <span className="font-mono text-[11px] text-accent">
+                  <span className="font-mono text-[11px] text-accent-ink">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col gap-[5px]">

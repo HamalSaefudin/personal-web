@@ -9,6 +9,7 @@
   --color-ink: var(--foreground);
   --color-panel: var(--panel);
   --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
   --color-accent-foreground: var(--accent-foreground);
   --color-primary: var(--accent);
   --color-primary-foreground: var(--accent-foreground);
@@ -27,6 +28,7 @@
   --border: #25303d;
   --panel: #111720;
   --accent: #55e6a5;
+  --accent-ink: #55e6a5;
   --accent-foreground: #07130d;
   --font-geist: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-plex-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
@@ -39,6 +41,7 @@
   --border: #d9e0e8;
   --panel: #ffffff;
   --accent: #55e6a5;
+  --accent-ink: #0b7a55;
   --accent-foreground: #07130d;
 }
 
@@ -68,7 +71,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--accent-ink);
     outline-offset: 3px;
   }
 }

@@ -19,7 +19,7 @@ export function Hero() {
       <div className="relative z-10 mx-auto max-w-[958px] px-6 lg:px-[54px]">
         <div className="flex min-h-[640px] flex-col justify-center py-20 lg:min-h-[740px]">
           <motion.p
-            className="font-mono text-[11px] tracking-[1px] text-accent"
+            className="font-mono text-[11px] tracking-[1px] text-accent-ink"
             initial="hidden"
             animate="visible"
             variants={reveal}

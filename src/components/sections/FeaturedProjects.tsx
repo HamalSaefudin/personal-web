@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Plus } from "lucide-react";
+import { ArrowUpRight, Minus, Plus } from "lucide-react";
 
 const projects = [
   {
@@ -65,7 +65,7 @@ export function FeaturedProjects() {
       <div className="mx-auto max-w-[958px] px-6 py-16 lg:px-[54px] lg:py-[72px]">
         <div className="flex items-end justify-between">
           <div className="flex flex-col gap-[10px]">
-            <p className="font-mono text-[11px] tracking-[1px] text-accent">
+            <p className="font-mono text-[11px] tracking-[1px] text-accent-ink">
               01 — SELECTED PROJECTS
             </p>
             <h2 className="text-[28px] font-semibold tracking-[-0.02em] text-foreground sm:text-[38px]">
@@ -73,7 +73,7 @@ export function FeaturedProjects() {
             </h2>
           </div>
           <p className="font-mono text-[11px] tracking-[1px] text-foreground-secondary">
-            [ 06 PROJECTS ]
+            [ {String(projects.length).padStart(2, "0")} PROJECTS ]
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export function FeaturedProjects() {
                 transition={{ duration: 0.2, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
               >
                 <div className="flex items-center gap-[22px]">
-                  <span className="font-mono text-[12px] text-accent">
+                  <span className="font-mono text-[12px] text-accent-ink">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col gap-[7px]">
@@ -123,8 +123,12 @@ export function FeaturedProjects() {
           onClick={() => setShowAll((v) => !v)}
           className="mt-6 flex items-center gap-[10px] border border-border px-4 py-3 font-mono text-[11px] font-semibold tracking-[0.6px] text-foreground transition-colors hover:border-foreground-secondary"
         >
-          {showAll ? "SHOW LESS" : "LOAD 3 MORE PROJECTS"}
-          <Plus aria-hidden="true" className="size-[15px] text-accent" />
+          {showAll ? "SHOW LESS" : `LOAD ${projects.length - visibleProjects.length} MORE PROJECTS`}
+          {showAll ? (
+            <Minus aria-hidden="true" className="size-[15px] text-accent" />
+          ) : (
+            <Plus aria-hidden="true" className="size-[15px] text-accent" />
+          )}
         </button>
       </div>
     </section>
