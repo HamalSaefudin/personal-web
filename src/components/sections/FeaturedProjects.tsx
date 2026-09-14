@@ -106,11 +106,6 @@ export function FeaturedProjects() {
                   </div>
                 </div>
                 <div className="flex items-center gap-[17px]">
-                  <span
-                    aria-hidden="true"
-                    className="hidden h-[48px] w-[64px] border border-border sm:block"
-                    style={{ backgroundColor: project.swatch }}
-                  />
                   <ArrowUpRight aria-hidden="true" className="size-[21px] text-foreground" />
                 </div>
               </motion.a>
