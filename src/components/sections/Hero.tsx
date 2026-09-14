@@ -2,102 +2,84 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { SectionEyebrow } from "@/components/SectionEyebrow";
-import { Button } from "@/components/ui/button";
-
-const links = [
-  { label: "GitHub", href: "https://github.com/HamalSaefudin" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/hamal-saefudin" },
-];
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const reveal = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 8 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
     visible: (delay: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay, duration: 0.25, ease: [0.23, 1, 0.32, 1] as const },
+      transition: { delay, duration: 0.3, ease: [0.23, 1, 0.32, 1] as const },
     }),
   };
 
   return (
-    <section id="overview" className="py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <SectionEyebrow number="01">Overview</SectionEyebrow>
-
-          <motion.h1
-            className="text-balance text-5xl font-medium leading-[1.08] tracking-[-0.04em] text-ink sm:text-7xl"
+    <section id="overview" className="relative border-b border-border">
+      <div className="relative z-10 mx-auto max-w-[958px] px-6 lg:px-[54px]">
+        <div className="flex min-h-[640px] flex-col justify-center py-20 lg:min-h-[740px]">
+          <motion.p
+            className="font-mono text-[11px] tracking-[1px] text-accent"
             initial="hidden"
             animate="visible"
             variants={reveal}
-            custom={0.04}
+            custom={0}
+          >
+            [ MOBILE APPLICATION DEVELOPER · JAKARTA, INDONESIA ]
+          </motion.p>
+
+          <motion.h1
+            className="mt-8 max-w-[720px] text-[40px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[52px] lg:text-[64px] lg:leading-[63px]"
+            initial="hidden"
+            animate="visible"
+            variants={reveal}
+            custom={0.06}
           >
             Hi, I&apos;m Hamal.
+            <br />
+            I build reliable
+            <br />
+            mobile products.
           </motion.h1>
 
           <motion.p
-            className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-foreground-secondary"
+            className="mt-10 max-w-[425px] text-[15px] leading-6 text-foreground-secondary sm:text-[17px] sm:leading-[26px]"
             initial="hidden"
             animate="visible"
             variants={reveal}
-            custom={0.1}
+            custom={0.12}
           >
-            Mobile Application Developer with 5+ years of expertise in React Native
-            and ReactJS. Based in Jakarta, Indonesia.
+            Mobile Application Developer with 6+ years of experience in React Native, ReactJS,
+            Flutter and TypeScript.
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-wrap items-center justify-center gap-3"
+            className="mt-12"
             initial="hidden"
             animate="visible"
             variants={reveal}
-            custom={0.16}
+            custom={0.18}
           >
-            <Button asChild>
-              <a href="mailto:hamalsaefudin48@gmail.com?subject=Hiring Inquiry">
-                Get in touch
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            </Button>
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 rounded-[24px] border border-ink px-6 py-3.5 text-sm font-medium text-ink transition-[transform,background-color,color] duration-[160ms] ease-out hover:bg-ink hover:text-background active:scale-[0.97]"
-              >
-                {link.label}
-                <ArrowUpRight aria-hidden="true" className="size-4" />
-              </a>
-            ))}
+            <a
+              href="mailto:hamalsaefudin48@gmail.com"
+              className="inline-flex items-center gap-[14px] bg-accent px-[18px] py-[14px] font-mono text-[11px] font-semibold tracking-[0.7px] text-accent-foreground transition-opacity hover:opacity-90"
+            >
+              GET IN TOUCH
+              <ArrowUpRight aria-hidden="true" className="size-[15px]" />
+            </a>
           </motion.div>
         </div>
+      </div>
 
-        <motion.div
-          className="mx-auto mt-20 grid max-w-3xl grid-cols-2 border-y border-ink py-8 text-left sm:mt-28"
-          initial="hidden"
-          animate="visible"
-          variants={reveal}
-          custom={0.24}
-        >
-          {[
-            { value: "6+", label: "Years experience" },
-            { value: "10+", label: "Projects completed" },
-          ].map((stat, index) => (
-            <div
-              key={stat.label}
-              className={index === 1 ? "border-l border-ink pl-6 sm:pl-10" : "pr-6 sm:pr-10"}
-            >
-              <p className="text-4xl font-medium tracking-[-0.04em] text-ink sm:text-5xl">
-                {stat.value}
-              </p>
-              <p className="mt-2 text-sm text-foreground-secondary">{stat.label}</p>
-            </div>
-          ))}
-        </motion.div>
+      <div className="absolute right-[54px] top-[255px] hidden lg:block" aria-hidden="true">
+        <div className="relative h-[260px] w-[220px]">
+          <div className="absolute left-[10px] top-[10px] size-[200px] rounded-full border border-border" />
+          <div className="absolute left-[57px] top-[57px] size-[106px] rounded-full border border-accent" />
+          <div className="absolute left-[96px] top-[96px] size-[30px] -rotate-45 bg-accent" />
+          <p className="absolute left-0 top-[232px] font-mono text-[10px] tracking-[1px] text-foreground-secondary">
+            STACK // RN · FLUTTER · TS
+          </p>
+        </div>
       </div>
     </section>
   );
