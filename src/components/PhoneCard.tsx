@@ -134,9 +134,52 @@ export function PhoneCard() {
     setDragging(true);
   };
 
+  const finishDrag = useCallback(
+    (track: HTMLDivElement, pointerId: number) => {
+      const state = drag.current;
+      if (!state.active || state.pointerId !== pointerId) return;
+
+      state.active = false;
+      setDragging(false);
+      if (track.hasPointerCapture(pointerId)) track.releasePointerCapture(pointerId);
+
+      // If no click follows this drag (pointer released outside the device), drop the flag
+      // so the next real click is not swallowed.
+      if (state.moved) {
+        window.setTimeout(() => {
+          drag.current.moved = false;
+        }, 250);
+      }
+
+      const width = track.clientWidth;
+      // Only a fresh sample counts as a flick; stale samples after a missed pointerup must not
+      // throw the track a screen further.
+      const fresh = state.lastT - state.prevT > 0 && performance.now() - state.lastT <= 120;
+      const velocity = fresh ? (state.lastX - state.prevX) / (state.lastT - state.prevT) : 0;
+      const startIndex = Math.round(state.startScroll / width);
+
+      // A flick moves exactly one screen from where the drag began; otherwise snap to the
+      // nearest screen, so a long drag and a flick never add up to two screens.
+      const index =
+        Math.abs(velocity) > FLICK_VELOCITY
+          ? startIndex + (velocity < 0 ? 1 : -1)
+          : Math.round(track.scrollLeft / width);
+      goTo(index);
+    },
+    [goTo],
+  );
+
   const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     const state = drag.current;
     if (!state.active || event.pointerId !== state.pointerId) return;
+
+    // The browser never sends pointerup when the button is released outside the window;
+    // the first move back inside carries buttons === 0, which means the drag is over.
+    if (event.buttons === 0) {
+      finishDrag(event.currentTarget, event.pointerId);
+      return;
+    }
+
     const track = event.currentTarget;
     const now = performance.now();
     state.prevX = state.lastX;
@@ -148,31 +191,28 @@ export function PhoneCard() {
   };
 
   const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const state = drag.current;
-    if (!state.active || event.pointerId !== state.pointerId) return;
-    const track = event.currentTarget;
-    state.active = false;
-    setDragging(false);
-    if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
-
-    // If no click follows this drag (pointer released outside the device), drop the flag
-    // so the next real click is not swallowed.
-    if (state.moved) window.setTimeout(() => {
-      drag.current.moved = false;
-    }, 250);
-
-    const width = track.clientWidth;
-    const flicked = state.lastT - state.prevT > 0 ? (state.lastX - state.prevX) / (state.lastT - state.prevT) : 0;
-    const startIndex = Math.round(state.startScroll / width);
-
-    // A flick moves exactly one screen from where the drag began; otherwise snap to the
-    // nearest screen, so a long drag and a flick never add up to two screens.
-    const index =
-      Math.abs(flicked) > FLICK_VELOCITY
-        ? startIndex + (flicked < 0 ? 1 : -1)
-        : Math.round(track.scrollLeft / width);
-    goTo(index);
+    finishDrag(event.currentTarget, event.pointerId);
   };
+
+  const onLostCapture = (event: ReactPointerEvent<HTMLDivElement>) => {
+    finishDrag(event.currentTarget, event.pointerId);
+  };
+
+  useEffect(() => {
+    if (!dragging) return;
+    const track = trackRef.current;
+    if (!track) return;
+
+    const end = () => finishDrag(track, drag.current.pointerId);
+    window.addEventListener("pointerup", end);
+    window.addEventListener("pointercancel", end);
+    window.addEventListener("blur", end);
+    return () => {
+      window.removeEventListener("pointerup", end);
+      window.removeEventListener("pointercancel", end);
+      window.removeEventListener("blur", end);
+    };
+  }, [dragging, finishDrag]);
 
   const suppressClickAfterDrag = (event: ReactMouseEvent<HTMLDivElement>) => {
     if (!drag.current.moved) return;
@@ -194,6 +234,7 @@ export function PhoneCard() {
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
+          onLostPointerCapture={onLostCapture}
           onClickCapture={suppressClickAfterDrag}
           onDragStart={(event) => event.preventDefault()}
         >
