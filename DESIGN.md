@@ -64,9 +64,12 @@ Chart series (only inside `.gantt`; the one place multiple hues are allowed):
 
 - Reveal: opacity 0→1 with `translateY(14px)→0`, 600ms, `cubic-bezier(.2,.7,.2,1)`, once per element at 12% visibility.
 - Chart bars: `scaleX(0)→1` transform, 900ms same easing, staggered 80ms per row, origin left.
-- Hover: border/colour transitions 180ms; buttons shift `translateY(1px)` on `:active`.
+- Press: `scale(0.97)` at 140ms `cubic-bezier(0.23,1,0.32,1)` on buttons, theme toggle and copy button; colour/border transitions stay 180ms `ease`.
+- Hover: colour/border 150–180ms, all hover rules gated behind `@media (hover: hover) and (pointer: fine)` so touch taps do not leave stuck states.
 - Implementation: CSS transitions toggled by an `IntersectionObserver` adding `.in`. The hidden state is gated behind `html[data-reveal="on"]`, which a pre-paint script sets only when JS runs and `prefers-reduced-motion: no-preference` matches — so no-JS and reduced-motion users see the final state, never a blank page.
-- Reduced motion: no reveal, no bar grow, no smooth scroll — content appears in its final state.
+- Theme switch: `html.theme-switching` crossfades background/colour/border for 220ms (all-or-nothing; partial transitions look broken), class removed after 260ms.
+- Copy feedback: button label swaps through a stacked grid crossfade, 160ms with `filter: blur(2px)` on the outgoing label; button width is stable, no layout shift.
+- Reduced motion: no reveal, no bar grow, no smooth scroll, no theme crossfade, no blur on the copy swap — content appears in its final state.
 
 ## Banned
 

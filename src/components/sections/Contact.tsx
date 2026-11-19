@@ -1,20 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const EMAIL = "hamalsaefudin48@gmail.com";
 
 export function Contact() {
-  const [status, setStatus] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState("");
+  const copiedTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const errorTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(
+    () => () => {
+      clearTimeout(copiedTimer.current);
+      clearTimeout(errorTimer.current);
+    },
+    [],
+  );
 
   const copy = async () => {
+    clearTimeout(errorTimer.current);
     try {
       await navigator.clipboard.writeText(EMAIL);
-      setStatus("Copied.");
+      setError("");
+      setCopied(true);
+      clearTimeout(copiedTimer.current);
+      copiedTimer.current = setTimeout(() => setCopied(false), 2000);
     } catch {
-      setStatus("Copy failed. Select the address instead.");
+      setCopied(false);
+      setError("Copy failed. Select the address instead.");
+      errorTimer.current = setTimeout(() => setError(""), 3000);
     }
-    window.setTimeout(() => setStatus(""), 2500);
   };
 
   return (
@@ -28,11 +44,14 @@ export function Contact() {
           {EMAIL}
         </a>
         <div className="copyrow">
-          <button className="copy" type="button" onClick={copy}>
-            Copy address
+          <button className="copy" type="button" onClick={copy} aria-label="Copy email address">
+            <span className="copy-swap" data-copied={copied ? "true" : "false"} aria-hidden="true">
+              <span className="copy-idle">Copy address</span>
+              <span className="copy-done">Copied</span>
+            </span>
           </button>
-          <span className="c-status" role="status" aria-live="polite">
-            {status}
+          <span className={error ? "c-status c-status-error" : "c-status"} role="status" aria-live="polite">
+            {error || (copied ? "Copied." : "")}
           </span>
         </div>
         <ul className="c-links">
