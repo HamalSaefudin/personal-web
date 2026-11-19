@@ -1,86 +1,131 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
+
+function useJakartaClock() {
+  const [time, setTime] = useState<string | null>(null);
+
+  useEffect(() => {
+    const tick = () => {
+      try {
+        setTime(
+          new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Asia/Jakarta",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          }).format(new Date()),
+        );
+      } catch {
+        setTime(null);
+      }
+    };
+
+    tick();
+    const id = window.setInterval(tick, 20000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return time;
+}
 
 export function Hero() {
-  const shouldReduceMotion = useReducedMotion();
-  const reveal = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay, duration: 0.3, ease: [0.23, 1, 0.32, 1] as const },
-    }),
-  };
+  const clock = useJakartaClock();
 
   return (
-    <section id="overview" className="relative border-b border-border">
-      <div className="relative z-10 mx-auto max-w-[958px] px-6 lg:px-[54px]">
-        <div className="flex min-h-[640px] flex-col justify-center py-20 lg:min-h-[740px]">
-          <motion.p
-            className="font-mono text-[11px] tracking-[1px] text-accent-ink"
-            initial="hidden"
-            animate="visible"
-            variants={reveal}
-            custom={0}
-          >
-            [ MOBILE APPLICATION DEVELOPER · JAKARTA, INDONESIA ]
-          </motion.p>
+    <div className="hero" id="top">
+      <div className="wrap">
+        <div className="hero-grid">
+          <div>
+            <p className="role mono">Mobile Application Developer</p>
+            <h1>
+              Hamal
+              <i>
+                Saefudin<span className="dot">.</span>
+              </i>
+            </h1>
+            <p className="pitch">
+              I build React Native and Flutter apps for finance and enterprise teams in Indonesia. I
+              started in web frontend, so I&apos;m just as comfortable in a ReactJS codebase as in a
+              native build pipeline.
+            </p>
+            <p className="pitch">
+              Six years of shipping, five roles since 2019 — Triputra Group, Mandala Multifinance,
+              Danamas, KODEGIRI and Quadrant Synergy International.
+            </p>
+            <div className="cta">
+              <a className="btn" href="mailto:hamalsaefudin48@gmail.com?subject=Hello%20Hamal">
+                Email me
+                <ArrowRight aria-hidden="true" className="size-4" strokeWidth={1.6} />
+              </a>
+              <a
+                className="link"
+                href="https://github.com/hamalsaefudin"
+                rel="noopener"
+                target="_blank"
+              >
+                Code on GitHub
+              </a>
+            </div>
+          </div>
 
-          <motion.h1
-            className="mt-8 max-w-[720px] text-[40px] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[52px] lg:text-[64px] lg:leading-[63px]"
-            initial="hidden"
-            animate="visible"
-            variants={reveal}
-            custom={0.06}
-          >
-            Hi, I&apos;m Hamal.
-            <br />
-            I build reliable
-            <br />
-            mobile products.
-          </motion.h1>
-
-          <motion.p
-            className="mt-10 max-w-[425px] text-[15px] leading-6 text-foreground-secondary sm:text-[17px] sm:leading-[26px]"
-            initial="hidden"
-            animate="visible"
-            variants={reveal}
-            custom={0.12}
-          >
-            Mobile Application Developer with 6+ years of experience in React Native, ReactJS,
-            Flutter and TypeScript.
-          </motion.p>
-
-          <motion.div
-            className="mt-12"
-            initial="hidden"
-            animate="visible"
-            variants={reveal}
-            custom={0.18}
-          >
-            <a
-              href="mailto:hamalsaefudin48@gmail.com"
-              className="inline-flex items-center gap-[14px] bg-accent px-[18px] py-[14px] font-mono text-[11px] font-semibold tracking-[0.7px] text-accent-foreground transition-opacity hover:opacity-90"
-            >
-              GET IN TOUCH
-              <ArrowUpRight aria-hidden="true" className="size-[15px]" />
-            </a>
-          </motion.div>
+          <div className="phone-wrap" aria-hidden="true">
+            <div className="phone">
+              <div className="screen">
+                <div className="s-head mono">
+                  <b>{clock ?? "--:--"}</b>
+                  <span>Jakarta</span>
+                </div>
+                <p className="s-now">Currently</p>
+                <h2>Mobile Application Developer</h2>
+                <p className="s-co">
+                  PT. Tiga Daya Digital Indonesia
+                  <br />
+                  Triputra Group
+                </p>
+                <ul className="s-rows">
+                  <li>
+                    <span>Since</span>
+                    <span>Sep 2023</span>
+                  </li>
+                  <li>
+                    <span>Stack</span>
+                    <span>RN / TS</span>
+                  </li>
+                  <li>
+                    <span>Targets</span>
+                    <span>Android, iOS</span>
+                  </li>
+                </ul>
+                <div className="s-home" />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="absolute right-[54px] top-[255px] hidden lg:block" aria-hidden="true">
-        <div className="relative h-[260px] w-[220px]">
-          <div className="absolute left-[10px] top-[10px] size-[200px] rounded-full border border-border" />
-          <div className="absolute left-[57px] top-[57px] size-[106px] rounded-full border border-accent" />
-          <div className="absolute left-[96px] top-[96px] size-[30px] -rotate-45 bg-accent" />
-          <p className="absolute left-0 top-[232px] font-mono text-[10px] tracking-[1px] text-foreground-secondary">
-            STACK // RN · FLUTTER · TS
-          </p>
-        </div>
+        <dl className="facts">
+          <div>
+            <dt>Role</dt>
+            <dd>Mobile Application Developer</dd>
+          </div>
+          <div>
+            <dt>Experience</dt>
+            <dd>6+ years</dd>
+          </div>
+          <div>
+            <dt>Based in</dt>
+            <dd>Jakarta, Indonesia</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>
+              <span className="ok" aria-hidden="true" />
+              Open to new roles, remote-friendly
+            </dd>
+          </div>
+        </dl>
       </div>
-    </section>
+    </div>
   );
 }

@@ -1,101 +1,152 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Minus, Plus } from "lucide-react";
+import { useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 
-const experiences = [
+// Months since 2019-01, out of 96 (2019 – 2026).
+const roles = [
   {
-    role: "Mobile Application Developer",
-    company: "PT. Tiga Daya Digital Indonesia (Triputra Group)",
-    period: "Sep 2023 - Present",
+    key: "k1",
+    label: "Tiga Daya Digital",
+    start: 56,
+    end: 95,
+    period: "Sep 2023 – Present",
+    title: "Mobile Application Developer",
+    company: "PT. Tiga Daya Digital Indonesia",
+    companyNote: "(Triputra Group)",
+    what: "Mobile apps for Triputra Group, built with React Native and TypeScript.",
+    current: true,
   },
   {
-    role: "Frontend Developer",
+    key: "k2",
+    label: "Danamas",
+    start: 54,
+    end: 57,
+    period: "Jul 2023 – Sep 2023",
+    title: "Frontend Developer",
     company: "Danamas",
-    period: "Jul 2023 - Sep 2023",
+    companyNote: null,
+    what: "Short frontend engagement building web interfaces in ReactJS.",
+    current: false,
   },
   {
-    role: "Mobile Application Developer",
+    key: "k3",
+    label: "Mandala Multifinance",
+    start: 38,
+    end: 55,
+    period: "Mar 2022 – Jul 2023",
+    title: "Mobile Application Developer",
     company: "Mandala Multifinance",
-    period: "Mar 2022 - Jul 2023",
+    companyNote: null,
+    what: "Developed and maintained features for a multifinance company's mobile app.",
+    current: false,
   },
   {
-    role: "Freelance Mobile Application Developer",
+    key: "k4",
+    label: "KODEGIRI",
+    start: 37,
+    end: 46,
+    period: "Feb 2022 – Oct 2022",
+    title: "Freelance Mobile Application Developer",
     company: "KODEGIRI",
-    period: "Feb 2022 - Okt 2022",
+    companyNote: null,
+    what: "Client mobile apps in Flutter, delivered alongside a full-time role.",
+    current: false,
   },
   {
-    role: "Frontend Developer",
+    key: "k5",
+    label: "Quadrant Synergy",
+    start: 7,
+    end: 39,
+    period: "Aug 2019 – Mar 2022",
+    title: "Frontend Developer",
     company: "Quadrant Synergy International",
-    period: "Aug 2019 - Mar 2022",
+    companyNote: null,
+    what: "Nearly three years of frontend work in ReactJS. My start in professional development.",
+    current: false,
   },
 ];
 
+const years = ["2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"];
+
+const TIMELINE_LABEL =
+  "Timeline of five roles from August 2019 to the present. Quadrant Synergy 2019 to 2022, " +
+  "KODEGIRI and Mandala Multifinance overlapping in 2022 and 2023, Danamas mid 2023, " +
+  "Tiga Daya Digital from September 2023 onward.";
+
 export function Experience() {
-  const [showAll, setShowAll] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
-  const visible = showAll ? experiences : experiences.slice(0, 3);
+  const chartRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = chartRef.current;
+    if (!element) return;
+
+    if (!("IntersectionObserver" in window)) {
+      element.classList.add("in");
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            element.classList.add("in");
+            observer.unobserve(element);
+          }
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="experience" className="border-b border-border">
-      <div className="mx-auto max-w-[958px] px-6 py-16 lg:px-[54px] lg:py-[76px]">
-        <div className="flex flex-col gap-[54px] lg:flex-row">
-          <div className="flex-1">
-            <p className="font-mono text-[11px] tracking-[1px] text-accent-ink">
-              02 — EXPERIENCE &amp; EDUCATION
-            </p>
-            <h2 className="mt-[22px] text-[32px] font-semibold leading-[1.02] tracking-[-0.02em] text-foreground sm:text-[43px] sm:leading-[43px]">
-              Shipping code.
-              <br />
-              Solving problems.
-            </h2>
-            <p className="mt-[22px] max-w-[420px] text-[16px] leading-6 text-foreground-secondary">
-              Currently building and maintaining mobile experiences with React Native. Computer
-              Science graduate from Binus University (2020—2024).
-            </p>
-            <button
-              type="button"
-              onClick={() => setShowAll((v) => !v)}
-              className="mt-8 flex items-center gap-[10px] border border-border px-4 py-3 font-mono text-[11px] font-semibold tracking-[0.6px] text-foreground transition-colors hover:border-foreground-secondary"
-            >
-              {showAll ? "SHOW LESS" : "VIEW ALL 5 POSITIONS"}
-              {showAll ? (
-                <Minus aria-hidden="true" className="size-[15px] text-accent" />
-              ) : (
-                <Plus aria-hidden="true" className="size-[15px] text-accent" />
-              )}
-            </button>
-          </div>
-
-          <div className="flex-1 border border-border">
-            <AnimatePresence initial={false}>
-              {visible.map((exp, i) => (
-                <motion.div
-                  key={`${exp.role}-${exp.company}`}
-                  className="flex items-center gap-[16px] border-b border-border px-[18px] py-[22px] last:border-b-0"
-                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
-                  transition={{ duration: 0.2, delay: i * 0.05, ease: [0.23, 1, 0.32, 1] }}
-                >
-                  <span className="font-mono text-[11px] text-accent-ink">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="flex flex-col gap-[5px]">
-                    <p className="font-mono text-[11px] tracking-[0.8px] text-foreground">
-                      {exp.company.toUpperCase()}
-                    </p>
-                    <p className="text-[13px] text-foreground-secondary">
-                      {exp.role} · {exp.period}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+    <>
+      <figure className="gantt" role="img" aria-label={TIMELINE_LABEL} ref={chartRef}>
+        <figcaption>Timeline, 2019 – now</figcaption>
+        <div className="g-axis" aria-hidden="true">
+          {years.map((year) => (
+            <span key={year}>{year}</span>
+          ))}
         </div>
-      </div>
-    </section>
+        {roles.map((role, index) => (
+          <div className={`g-row ${role.key}${role.current ? " now" : ""}`} key={role.key} aria-hidden="true">
+            <span className="g-lab">{role.label}</span>
+            <div className="g-track">
+              <span
+                className="g-bar"
+                style={
+                  { "--s": role.start, "--e": role.end, "--i": index } as CSSProperties
+                }
+              />
+            </div>
+          </div>
+        ))}
+        <ul className="g-legend" aria-hidden="true">
+          {roles.map((role) => (
+            <li className={`${role.key}${role.current ? " now" : ""}`} key={role.key}>
+              <i />
+              {role.label} · {role.period}
+            </li>
+          ))}
+        </ul>
+      </figure>
+
+      <ol className="ledger">
+        {roles.map((role) => (
+          <li className={`job${role.current ? " cur" : ""}`} key={role.period}>
+            <span className="per">{role.period}</span>
+            <h3>{role.title}</h3>
+            <p className="co">
+              {role.company}
+              {role.companyNote ? <small> {role.companyNote}</small> : null}
+            </p>
+            <p className="what">{role.what}</p>
+          </li>
+        ))}
+      </ol>
+    </>
   );
 }

@@ -1,17 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { Experience } from "@/components/sections/Experience";
 
 describe("Experience", () => {
-  it("shows three positions first and expands to all five", async () => {
+  it("lists all five roles and exposes the timeline as one labelled graphic", () => {
     render(<Experience />);
-    const user = userEvent.setup();
 
-    expect(screen.getByText(/tiga daya digital/i)).toBeInTheDocument();
-    expect(screen.queryByText(/quadrant synergy/i)).not.toBeInTheDocument();
+    expect(screen.getByText("Sep 2023 – Present")).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(5);
+    expect(screen.getByText(/quadrant synergy international/i)).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: /view all 5 positions/i }));
-    expect(screen.getByText(/quadrant synergy/i)).toBeInTheDocument();
+    const chart = screen.getByRole("img", { name: /timeline of five roles/i });
+    expect(chart).toBeInTheDocument();
   });
 });

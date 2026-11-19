@@ -3,14 +3,12 @@ import { describe, expect, it } from "vitest";
 import { Contact } from "@/components/sections/Contact";
 
 describe("Contact", () => {
-  it("renders the heading and the email CTA", () => {
+  it("points the email CTA at the real address", () => {
     render(<Contact />);
 
+    expect(screen.getByRole("heading", { name: /hiring for mobile/i })).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /let's make something useful/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /hamalsaefudin48@gmail.com/i }),
+      screen.getByRole("link", { name: "hamalsaefudin48@gmail.com" }),
     ).toHaveAttribute("href", "mailto:hamalsaefudin48@gmail.com");
   });
 });

@@ -1,27 +1,57 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+
+const EMAIL = "hamalsaefudin48@gmail.com";
 
 export function Contact() {
+  const [status, setStatus] = useState("");
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setStatus("Copied.");
+    } catch {
+      setStatus("Copy failed. Select the address instead.");
+    }
+    window.setTimeout(() => setStatus(""), 2500);
+  };
+
   return (
-    <section id="contact" className="bg-accent">
-      <div className="mx-auto flex min-h-[258px] max-w-[958px] flex-col justify-center gap-[18px] px-6 py-12 lg:px-[54px]">
-        <p className="font-mono text-[11px] tracking-[1px] text-accent-foreground">
-          03 — LET&apos;S CONNECT
-        </p>
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-[28px] font-semibold tracking-[-0.02em] text-accent-foreground sm:text-[40px]">
-            Let&apos;s make something useful.
-          </h2>
-          <a
-            href="mailto:hamalsaefudin48@gmail.com"
-            className="flex items-center gap-[12px] border-b border-accent-foreground pb-[12px] font-mono text-[12px] font-semibold tracking-[0.6px] text-accent-foreground"
-          >
-            HAMALSAEFUDIN48@GMAIL.COM
-            <ArrowUpRight aria-hidden="true" className="size-4" />
-          </a>
+    <footer className="contact" id="contact">
+      <div className="wrap">
+        <p className="mono">05 / Contact</p>
+        <h2>
+          Hiring for <em>mobile?</em> Send me a message.
+        </h2>
+        <a className="mail" href={`mailto:${EMAIL}`}>
+          {EMAIL}
+        </a>
+        <div className="copyrow">
+          <button className="copy" type="button" onClick={copy}>
+            Copy address
+          </button>
+          <span className="c-status" role="status" aria-live="polite">
+            {status}
+          </span>
         </div>
+        <ul className="c-links">
+          <li>
+            <a href="https://github.com/hamalsaefudin" rel="noopener" target="_blank">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/hamalsaefudin" rel="noopener" target="_blank">
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+        <p className="legal">
+          <span>© {new Date().getFullYear()} Hamal Saefudin</span>
+          <span>Jakarta, Indonesia (GMT+7)</span>
+        </p>
       </div>
-    </section>
+    </footer>
   );
 }

@@ -4,15 +4,15 @@ import { describe, expect, it } from "vitest";
 import { Header } from "@/components/layout/Header";
 
 describe("Header", () => {
-  it("renders the brand, nav links, and toggles the theme", async () => {
+  it("links to the sections and toggles the theme", async () => {
     render(<Header />);
     const user = userEvent.setup();
 
-    expect(screen.getByText("HAMAL // DEV")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /projects/i })).toHaveAttribute("href", "#projects");
+    expect(screen.getByRole("link", { name: /back to top/i })).toHaveAttribute("href", "#top");
+    expect(screen.getByRole("link", { name: "Experience" })).toHaveAttribute("href", "#experience");
 
-    expect(screen.getByRole("button", { name: /switch to light mode/i })).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: /switch to light mode/i }));
-    expect(screen.getByRole("button", { name: /switch to dark mode/i })).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /switch to light theme/i }));
+    expect(screen.getByRole("button", { name: /switch to dark theme/i })).toBeInTheDocument();
+    expect(document.documentElement.dataset.theme).toBe("light");
   });
 });

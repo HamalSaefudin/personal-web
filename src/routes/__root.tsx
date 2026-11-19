@@ -15,18 +15,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Hamal" },
+      { title: "Hamal Saefudin — Mobile Application Developer, Jakarta" },
       {
         name: "description",
         content:
-          "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS. Based in Jakarta, Indonesia. Specialized in building high-quality mobile and web applications.",
+          "Hamal Saefudin is a Mobile Application Developer in Jakarta with 6+ years of experience in React Native, ReactJS, Flutter and TypeScript.",
       },
       {
         name: "keywords",
         content:
           "Mobile Application Developer, React Native Developer, Flutter Developer, ReactJS Developer, TypeScript Developer, Jakarta, Indonesia, Hamal, Frontend Developer, Cross-platform Mobile Apps",
       },
-      { name: "author", content: "Hamal" },
+      { name: "author", content: "Hamal Saefudin" },
       { name: "creator", content: "Hamal" },
       { name: "publisher", content: "Hamal" },
       { name: "robots", content: "index, follow" },
@@ -34,22 +34,22 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "en_US" },
       { property: "og:url", content: "https://hamalsaefudin.com" },
-      { property: "og:site_name", content: "Hamal" },
-      { property: "og:title", content: "Hamal | Mobile Application Developer" },
+      { property: "og:site_name", content: "Hamal Saefudin" },
+      { property: "og:title", content: "Hamal Saefudin | Mobile Application Developer" },
       {
         property: "og:description",
         content:
-          "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS. Based in Jakarta, Indonesia.",
+          "Mobile Application Developer in Jakarta with 6+ years of experience in React Native, ReactJS, Flutter and TypeScript.",
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Hamal | Mobile Application Developer" },
+      { name: "twitter:title", content: "Hamal Saefudin | Mobile Application Developer" },
       {
         name: "twitter:description",
         content:
-          "Experienced Mobile Application Developer with 5+ years of expertise in React Native, Flutter, and ReactJS.",
+          "Mobile Application Developer in Jakarta. React Native, ReactJS, Flutter, TypeScript.",
       },
       { name: "twitter:creator", content: "@hamaltech" },
-      { name: "theme-color", content: "#0a0d12" },
+      { name: "theme-color", content: "#12110e" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -57,7 +57,7 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=IBM+Plex+Mono:wght@400;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap",
       },
       { rel: "canonical", href: "https://hamalsaefudin.com" },
       { rel: "icon", href: "/icon.png" },
@@ -66,7 +66,7 @@ export const Route = createRootRoute({
     ],
     scripts: [
       {
-        children: `(function(){try{var t=localStorage.getItem("theme");if(!t){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})();`,
+        children: `(function(){try{var t=localStorage.getItem("theme");if(!t){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark"}document.documentElement.dataset.theme=t;if(!window.matchMedia||window.matchMedia("(prefers-reduced-motion: no-preference)").matches){document.documentElement.dataset.reveal="on"}}catch(e){document.documentElement.dataset.theme="dark"}})();`,
       },
     ],
   }),
@@ -77,7 +77,7 @@ export const Route = createRootRoute({
 
 function RootDocument() {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

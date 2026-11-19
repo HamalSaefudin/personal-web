@@ -25,7 +25,7 @@ export function useTheme() {
       }
       document
         .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", next === "dark" ? "#0a0d12" : "#f8fafc");
+        ?.setAttribute("content", next === "dark" ? "#12110e" : "#f2efe8");
       return next;
     });
   }, []);
