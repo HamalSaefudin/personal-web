@@ -71,7 +71,7 @@ Chart series (only inside `.gantt`; the one place multiple hues are allowed):
 - Theme switch: `html.theme-switching` crossfades background/colour/border for 220ms (all-or-nothing; partial transitions look broken), class removed after 260ms.
 - Copy feedback: button label swaps through a stacked grid crossfade, 160ms with `filter: blur(2px)` on the outgoing label; button width is stable, no layout shift.
 - Phone: panel snap is delegated to the browser scroll engine (no JS animation); dot indicator colour 180ms, press `scaleX(0.85)` on the dash; `goTo` uses `behavior: auto` under reduced motion so panels jump instead of gliding.
-- Status dot: `s-heartbeat`, two scale beats (7px → 10px) inside 38% of a 2.4s cycle, then rest — a live indicator rather than a blinking cursor. Static under reduced motion.
+- Status dot: `s-blink`, indicator LED switching colour, not fading: `steps(1, end)` over 1.1s, accent for half the cycle then the neutral rule colour, hard switch. No opacity, no scale. Static accent under reduced motion.
 - Reduced motion: no reveal, no bar grow, no smooth scroll, no theme crossfade, no blur on the copy swap — content appears in its final state.
 
 ## Banned

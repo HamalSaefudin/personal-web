@@ -445,31 +445,21 @@
   height: 7px;
   border-radius: 50%;
   background: var(--accent);
-  animation: s-heartbeat 2.4s ease-out infinite;
+  animation: s-blink 1.1s steps(1, end) infinite;
 }
 
-/* Two quick beats, then rest: reads as a live status, not a blinking cursor. */
-@keyframes s-heartbeat {
-  0%,
-  5% {
-    transform: scale(1);
+/* Indicator LED: hard on/off switch between the accent and the neutral rule colour. */
+@keyframes s-blink {
+  0% {
+    background-color: var(--accent);
   }
 
-  13% {
-    transform: scale(1.45);
+  50% {
+    background-color: var(--line);
   }
 
-  21% {
-    transform: scale(1);
-  }
-
-  29% {
-    transform: scale(1.3);
-  }
-
-  38%,
   100% {
-    transform: scale(1);
+    background-color: var(--accent);
   }
 }
 
