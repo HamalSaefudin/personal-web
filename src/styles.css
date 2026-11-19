@@ -440,10 +440,43 @@
 
 .s-now::before {
   content: "";
+  flex: none;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--accent);
+  animation: s-heartbeat 2.4s ease-out infinite;
+}
+
+/* Two quick beats, then rest: reads as a live status, not a blinking cursor. */
+@keyframes s-heartbeat {
+  0%,
+  5% {
+    transform: scale(1);
+  }
+
+  13% {
+    transform: scale(1.45);
+  }
+
+  21% {
+    transform: scale(1);
+  }
+
+  29% {
+    transform: scale(1.3);
+  }
+
+  38%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s-now::before {
+    animation: none;
+  }
 }
 
 .panel h2 {
