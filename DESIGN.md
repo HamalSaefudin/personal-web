@@ -57,7 +57,8 @@ Chart series (only inside `.gantt`; the one place multiple hues are allowed):
 
 - Section rhythm: label column left (`01 / Selected work` in accent mono, h2 serif below, sticky at `top:92px`), content right. Every section opens with a 2px rule.
 - Alignment/asymmetry: left-aligned throughout; the only centred element is the phone's home indicator. Numbers and dates are mono so columns line up optically.
-- Graphic treatment: one chart (timeline) and one illustration (phone) — both pure CSS/SVG, no images.
+- Graphic treatment: one chart (timeline) and one illustrated phone — both pure CSS, no images. The phone is a real device mock with three snap panels: Profile (live Jakarta clock, current role), Selected work (three app rows linking to Play Store), Contact (email, GitHub, LinkedIn). 24px dots below act as the indicator and the controls.
+- Phone interaction: native `scroll-snap-type: x mandatory` track (touch and trackpad get real momentum); mice get pointer-drag with capture, and a flick above `0.25 px/ms` advances exactly one panel from where the drag started, so drag distance and flick never add up to two panels. `tabIndex=0` makes arrow keys scroll the track.
 - Responsive at 390px: chart drops its row labels (`2019…2026` axis + coloured bars only) and grows a colour legend under the chart; desktop keeps row labels and hides the legend. Job rows collapse from `170px 1fr` to stacked. Nav wraps under the mark. Phone card is hidden below 960px.
 
 ## Motion
@@ -69,6 +70,7 @@ Chart series (only inside `.gantt`; the one place multiple hues are allowed):
 - Implementation: CSS transitions toggled by an `IntersectionObserver` adding `.in`. The hidden state is gated behind `html[data-reveal="on"]`, which a pre-paint script sets only when JS runs and `prefers-reduced-motion: no-preference` matches — so no-JS and reduced-motion users see the final state, never a blank page.
 - Theme switch: `html.theme-switching` crossfades background/colour/border for 220ms (all-or-nothing; partial transitions look broken), class removed after 260ms.
 - Copy feedback: button label swaps through a stacked grid crossfade, 160ms with `filter: blur(2px)` on the outgoing label; button width is stable, no layout shift.
+- Phone: panel snap is delegated to the browser scroll engine (no JS animation); dot indicator colour 180ms, press `scaleX(0.85)` on the dash; `goTo` uses `behavior: auto` under reduced motion so panels jump instead of gliding.
 - Reduced motion: no reveal, no bar grow, no smooth scroll, no theme crossfade, no blur on the copy swap — content appears in its final state.
 
 ## Banned

@@ -1,38 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-
-function useJakartaClock() {
-  const [time, setTime] = useState<string | null>(null);
-
-  useEffect(() => {
-    const tick = () => {
-      try {
-        setTime(
-          new Intl.DateTimeFormat("en-GB", {
-            timeZone: "Asia/Jakarta",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-          }).format(new Date()),
-        );
-      } catch {
-        setTime(null);
-      }
-    };
-
-    tick();
-    const id = window.setInterval(tick, 20000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  return time;
-}
+import { PhoneCard } from "@/components/PhoneCard";
 
 export function Hero() {
-  const clock = useJakartaClock();
-
   return (
     <div className="hero" id="top">
       <div className="wrap">
@@ -70,37 +39,8 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="phone-wrap" aria-hidden="true">
-            <div className="phone">
-              <div className="screen">
-                <div className="s-head mono">
-                  <b>{clock ?? "--:--"}</b>
-                  <span>Jakarta</span>
-                </div>
-                <p className="s-now">Currently</p>
-                <h2>Mobile Application Developer</h2>
-                <p className="s-co">
-                  PT. Tiga Daya Digital Indonesia
-                  <br />
-                  Triputra Group
-                </p>
-                <ul className="s-rows">
-                  <li>
-                    <span>Since</span>
-                    <span>Sep 2023</span>
-                  </li>
-                  <li>
-                    <span>Stack</span>
-                    <span>RN / TS</span>
-                  </li>
-                  <li>
-                    <span>Targets</span>
-                    <span>Android, iOS</span>
-                  </li>
-                </ul>
-                <div className="s-home" />
-              </div>
-            </div>
+          <div className="phone-wrap">
+            <PhoneCard />
           </div>
         </div>
 
